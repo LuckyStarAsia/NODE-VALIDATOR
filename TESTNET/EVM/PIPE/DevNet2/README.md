@@ -119,8 +119,12 @@ journalctl -u pipe-pop -f
 
 To check your node's performance, reputation, and points earned from referrals, use the following command:
 
-```bash
-./pop --status
+```
+$HOME/pipenetwork/pop --status
+```
+
+```
+$HOME/pipenetwork/pop --points-route
 ```
 
 You’ll get a detailed breakdown of your node’s reputation metrics, including:
