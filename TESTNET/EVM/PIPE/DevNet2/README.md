@@ -22,12 +22,11 @@ Before we get started, make sure you have the following:
 Let's begin by creating the directory where your `pop` node files will reside, and a separate directory for the cache:
 
 ```bash
-mkdir -p /root/pipenetwork
-mkdir -p /root/pipenetwork/download_cache
-cd /root/pipenetwork
+mkdir -p $HOME/pipenetwork/download_cache
+cd $HOME/pipenetwork
 ```
 
-**🔔 Important:** After creating the `pipenetwork` directory, move the **`pop` binary** that you received via email into this directory.
+**🔔 Important:** After creating the `pipenetwork` directory, move the **`pop` binary** that you received via email into `$HOME/pipenetwork` directory.
 
 ---
 
@@ -36,41 +35,41 @@ cd /root/pipenetwork
 Now we’ll configure the systemd service to manage the Pipe POP node automatically.
 
 1. **Create the systemd service file** at `/etc/systemd/system/pipe-pop.service` with the following content:
+```
+sudo tee /etc/systemd/system/pipe-pop.service > /dev/null << EOF
+[Unit]
+Description=Pipe POP Node Service
+After=network.target
+Wants=network-online.target
 
-    ```ini
-    [Unit]
-    Description=Pipe POP Node Service
-    After=network.target
-    Wants=network-online.target
+[Service]
+User=$USER
+Group=$USER
+WorkingDirectory=$HOME/pipenetwork
+ExecStart=$HOME/pipenetwork/pop \
+    --ram <your-RAM-in-Gb> \
+    --max-disk <your-max-disk-in-Gb> \
+    --cache-dir $HOME/pipenetwork/download_cache \
+    --pubKey <your-solana-address> \
+    --signup-by-referral-route d04873036056df2b
+Restart=always
+RestartSec=5
+LimitNOFILE=65536
+LimitNPROC=4096
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=dcdn-node
 
-    [Service]
-    User=root
-    Group=root
-    WorkingDirectory=/root/pipenetwork
-    ExecStart=/root/pipenetwork/pop \
-        --ram <Your RAM size> \
-        --max-disk <Your server disk max> \
-        --cache-dir /root/pipenetwork/download_cache \
-        --pubKey <Your Solana Address> \
-        --signup-by-referral-route 65dcec6a1eb60cf9
-    Restart=always
-    RestartSec=5
-    LimitNOFILE=65536
-    LimitNPROC=4096
-    StandardOutput=journal
-    StandardError=journal
-    SyslogIdentifier=dcdn-node
-
-    [Install]
-    WantedBy=multi-user.target
-    ```
+[Install]
+WantedBy=multi-user.target
+EOF
+```
 
    **🌟 Explanation of the Parameters**:
-   - `--ram <Your RAM size>`: Replace `<Your RAM size>` with the amount of RAM you wish to allocate (e.g., `8` for 8GB).
-   - `--max-disk <Your server disk max>`: Replace `<Your server disk max>` with the disk space you want to allocate (e.g., `500` for 500GB).
-   - `--pubKey <Your Solana Address>`: Replace `<Your Solana Address>` with your actual Solana public address.
+   - `--ram <your-RAM-in-Gb>`: Replace `<your-RAM-in-Gb>` with the amount of RAM you wish to allocate (e.g., `8` for 8GB).
+   - `--max-disk <your-max-disk-in-Gb>`: Replace `<your-max-disk-in-Gb>` with the disk space you want to allocate (e.g., `500` for 500GB).
+   - `--pubKey <your-solana-address>`: Replace `<your-solana-address>` with your actual Solana public address.
 
----
 
 ### **3. Enable and Start the Service**
 
