@@ -44,8 +44,12 @@ kopid q bank balances $(kopid keys show $WALLET -a)
 ```
 
 ## Token management
-### Withdraw rewards from all validators
+### Set withdraw address:
+```
+kopid tx distribution set-withdraw-addr <New-withdraw-address> --from $WALLET
+```
 
+### Withdraw rewards from all validators
 ```
 kopid tx distribution withdraw-all-rewards --from $WALLET --chain-id $KOPI_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 0ukopi -y
 ```
