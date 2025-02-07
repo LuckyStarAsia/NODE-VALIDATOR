@@ -34,11 +34,11 @@ source $HOME/.bash_profile
 
 ## Cloning side repository and installing it locally:
 
-### v1.0.0-rc.1 (Mainnet)
+### v1.0.0 (Mainnet)
 
 ```
 git clone https://github.com/sideprotocol/side.git
-git checkout v1.0.0-rc.1
+git checkout v1.0.0
 cd side
 make install
 ```
@@ -53,12 +53,12 @@ result
 - pgregory.net/rapid@v1.1.0
 - sigs.k8s.io/yaml@v1.4.0
 build_tags: netgo ledger,
-commit: c013008ff674dcfc82264875b7e36a08db329803
+commit: 447f80114d1099cb52b77d6e0e30995f63f5a6ab
 cosmos_sdk_version: v0.50.9-btc1
 go: go version go1.22.8 linux/amd64
 name: sidechain
 server_name: sided
-version: 1.0.0-rc.1
+version: 1.0.0
 ```
 
 
@@ -79,7 +79,7 @@ go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.6.0
 
 ## INITIA NODE:
 ### Set var: 
-with port=`12`xxx
+with port=`15`xxx
 
 ```
 echo "export WALLET="wallet"" >> $HOME/.bash_profile
@@ -155,11 +155,24 @@ sed -i -e "s/prometheus = false/prometheus = true/" $HOME/.side/config/config.to
 ```
 
 ### Downloading genesis & addrbook:
+https://github.com/sideprotocol/networks/tree/main/mainnet/sidechain-1
+
 ```
-curl -Ls https://snapshots.kjnodes.com/side/genesis.json > $HOME/.side/config/genesis.json
-curl -Ls https://snapshots.kjnodes.com/side/addrbook.json > $HOME/.side/config/addrbook.json
+wget https://github.com/sideprotocol/networks/raw/main/mainnet/sidechain-1/genesis.json -O ~/.side/config/genesis.json
 ```
 
+```
+shasum -a 256 ~/.side/config/genesis.json
+```
+>>>>>>>>>(20250207)
+```
+469bb84bbd261c4d39c816cbea6966c6169804629cf3a4d177f66f48818ea75b  /home/side/.side/config/genesis.json
+```
+
+### ADD SEED:
+```
+sed -i -e "s|^seeds *=.*|seeds = \"0ca21af519767961a10a9b96a10ebcbc8ab7b5e6@209.250.232.135:26656\"|" $HOME/.side/config/config.toml
+```
 
 ## Create service:
 ```
