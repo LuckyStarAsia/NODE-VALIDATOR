@@ -38,8 +38,8 @@ source $HOME/.bash_profile
 
 ```
 git clone https://github.com/sideprotocol/side.git
-git checkout v1.0.0
 cd side
+git checkout v1.0.0
 make install
 ```
 
