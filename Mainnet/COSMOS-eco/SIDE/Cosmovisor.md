@@ -126,15 +126,41 @@ s%:26660%:${SIDE_PORT}660%g" $HOME/.side/config/config.toml
 
 ## Downloading genesis and adjust config files...:
 
+### Downloading genesis & addrbook:
+https://github.com/sideprotocol/networks/tree/main/mainnet/sidechain-1
+
 ```
-IP=$(curl -s -4 icanhazip.com)
-sed -i -e "s/external_address = \"\"/external_address = \"${IP}:26656\"/g" ~/.side/config/config.toml
-sed -i '/^seeds/ c\seeds = "85919e3dcc7eec3b64bfdd87657c4fac307c9d23@65.109.34.145:26656"' ~/.side/config/config.toml
-sed -i -e 's/timeout_propose = "3s"/timeout_propose = "1s"/g' ~/.side/config/config.toml
-sed -i -e 's/timeout_commit = "5s"/timeout_commit = "1s"/g' ~/.side/config/config.toml
-sed -i -e 's/minimum-gas-prices = ""/minimum-gas-prices = "0uside"/g' ~/.side/config/app.toml
+wget https://github.com/sideprotocol/networks/raw/main/mainnet/sidechain-1/genesis.json -O ~/.side/config/genesis.json
 ```
 
+```
+shasum -a 256 ~/.side/config/genesis.json
+```
+
+```
+469bb84bbd261c4d39c816cbea6966c6169804629cf3a4d177f66f48818ea75b  /home/side/.side/config/genesis.json
+```
+
+### ADD SEED:
+```
+sed -i -e "s|^seeds *=.*|seeds = \"0ca21af519767961a10a9b96a10ebcbc8ab7b5e6@209.250.232.135:26656\"|" $HOME/.side/config/config.toml
+```
+
+### Timeout
+```
+sed -i -e 's/timeout_propose = "3s"/timeout_propose = "1s"/g' ~/.side/config/config.toml
+sed -i -e 's/timeout_commit = "5s"/timeout_commit = "1s"/g' ~/.side/config/config.toml
+```
+
+### GAS
+```
+sed -i -e "s|^minimum-gas-prices *=.*|minimum-gas-prices = \"0.0006uside,0.000001sat\"|" $HOME/.side/config/app.toml
+```
+
+SAI GAS vi thieu SAT
+```
+sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.5uside\"/" $HOME/.side/config/app.toml
+```
 
 ### Setting pruning
 ```
@@ -154,24 +180,12 @@ sed -i -e 's|^indexer *=.*|indexer = "null"|' $HOME/.side/config/config.toml
 sed -i -e "s/prometheus = false/prometheus = true/" $HOME/.side/config/config.toml
 ```
 
-### Downloading genesis & addrbook:
-https://github.com/sideprotocol/networks/tree/main/mainnet/sidechain-1
 
-```
-wget https://github.com/sideprotocol/networks/raw/main/mainnet/sidechain-1/genesis.json -O ~/.side/config/genesis.json
-```
 
+### ???
 ```
-shasum -a 256 ~/.side/config/genesis.json
-```
-
-```
-469bb84bbd261c4d39c816cbea6966c6169804629cf3a4d177f66f48818ea75b  /home/side/.side/config/genesis.json
-```
-
-### ADD SEED:
-```
-sed -i -e "s|^seeds *=.*|seeds = \"0ca21af519767961a10a9b96a10ebcbc8ab7b5e6@209.250.232.135:26656\"|" $HOME/.side/config/config.toml
+IP=$(curl -s -4 icanhazip.com)
+sed -i -e "s/external_address = \"\"/external_address = \"${IP}:26656\"/g" ~/.side/config/config.toml
 ```
 
 ## Create service:
