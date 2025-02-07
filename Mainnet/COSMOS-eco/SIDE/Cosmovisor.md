@@ -154,11 +154,10 @@ sed -i -e 's|^indexer *=.*|indexer = "null"|' $HOME/.side/config/config.toml
 sed -i -e "s/prometheus = false/prometheus = true/" $HOME/.side/config/config.toml
 ```
 
-### Downloading chain data:
+### Downloading genesis & addrbook:
 ```
-cd $HOME/.side/config
-rm genesis.json 
-wget https://github.com/sideprotocol/networks/raw/main/mainnet/sidechain-1/pre-genesis.json -O genesis.json
+curl -Ls https://snapshots.kjnodes.com/side/genesis.json > $HOME/.side/config/genesis.json
+curl -Ls https://snapshots.kjnodes.com/side/addrbook.json > $HOME/.side/config/addrbook.json
 ```
 
 
