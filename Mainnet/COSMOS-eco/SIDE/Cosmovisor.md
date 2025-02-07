@@ -95,7 +95,7 @@ DAEMON_HOME="$HOME/.side/" DAEMON_NAME="sided" cosmovisor init $HOME/go/bin/side
 
 ### config and init app
 ```
-sided init $MONIKER && \
+sided init $MONIKER --chain-id $SIDE_CHAIN_ID && \
 sided config set client chain-id $SIDE_CHAIN_ID && \
 sided config set client keyring-backend os && \
 sed -i -e "s|^node *=.*|node = \"tcp://localhost:${SIDE_PORT}657\"|" $HOME/.side/config/client.toml
