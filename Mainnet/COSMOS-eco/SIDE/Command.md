@@ -1,13 +1,14 @@
 # CHEAT SHEET
 ## 🔑 Key management
+Note: The key type can be **`Segwit`** or **`Taproot`**.
 ### Add new key
 ```
-sided keys add $WALLET
+sided keys add $WALLET --key-type=<key type>
 ```
 
 ### Recover existing key
 ```
-sided keys add $WALLET --recover
+sided keys add $WALLET --recover --key-type=<key type>
 ```
 
 ### List all keys
