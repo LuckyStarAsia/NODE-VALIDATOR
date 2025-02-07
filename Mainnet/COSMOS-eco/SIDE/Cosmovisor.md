@@ -145,6 +145,10 @@ shasum -a 256 ~/.side/config/genesis.json
 ```
 sed -i -e "s|^seeds *=.*|seeds = \"0ca21af519767961a10a9b96a10ebcbc8ab7b5e6@209.250.232.135:26656\"|" $HOME/.side/config/config.toml
 ```
+or:
+```
+sed -i -e "s|^seeds *=.*|seeds = \"3f472746f46493309650e5a033076689996c8881@side.rpc.kjnodes.com:17459\"|" $HOME/.side/config/config.toml
+```
 
 ### Timeout
 ```
