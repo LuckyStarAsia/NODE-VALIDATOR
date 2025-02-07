@@ -1,6 +1,6 @@
 # CHEAT SHEET
 ## 🔑 Key management
-Note: The key type can be **`Segwit`** or **`Taproot`**.
+Note: The **`<key type>`** can be **`Segwit`** or **`Taproot`**.
 ### Add new key
 ```
 sided keys add $WALLET --key-type=<key type>
