@@ -1,5 +1,5 @@
 
-# SIDE ![image](https://github.com/user-attachments/assets/9f5f12f8-5958-4e5e-9a72-764cdfe1c8ac)
+# SIDE 
 
 
 
@@ -74,7 +74,7 @@ cp $HOME/go/bin/sided $HOME/.side/cosmovisor/genesis/bin/
 ### Download and install Cosmovisor
 ```
 cd $HOME
-go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@latest
+go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.6.0
 ```
 
 ## INITIA NODE:
@@ -84,8 +84,8 @@ with port=`12`xxx
 ```
 echo "export WALLET="wallet"" >> $HOME/.bash_profile
 echo "export MONIKER="your-moniker"" >> $HOME/.bash_profile
-echo "export SIDE_CHAIN_ID="luwak-1"" >> $HOME/.bash_profile
-echo "export SIDE_PORT="12"" >> $HOME/.bash_profile
+echo "export SIDE_CHAIN_ID="sidechain-1"" >> $HOME/.bash_profile
+echo "export SIDE_PORT="15"" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
 
