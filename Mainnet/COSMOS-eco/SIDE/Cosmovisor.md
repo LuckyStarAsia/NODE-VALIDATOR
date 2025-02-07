@@ -164,7 +164,7 @@ wget https://github.com/sideprotocol/networks/raw/main/mainnet/sidechain-1/genes
 ```
 shasum -a 256 ~/.side/config/genesis.json
 ```
->>>>>>>>>(20250207)
+
 ```
 469bb84bbd261c4d39c816cbea6966c6169804629cf3a4d177f66f48818ea75b  /home/side/.side/config/genesis.json
 ```
