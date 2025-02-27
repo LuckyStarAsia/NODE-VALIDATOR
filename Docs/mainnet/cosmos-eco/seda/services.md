@@ -4,24 +4,24 @@
 
 ## LUCKYSTAR - SEDA services:
 
-### [EXPLORER](https://explorer.luckystar.asia/Seda):&#x20;
+### EXPLORER:&#x20;
 
 [https://explorer.luckystar.asia/Seda](https://explorer.luckystar.asia/Seda)
 
 ### [SNAPSHOT link](snapshot.md)
 
-### [GENESIS ](https://seda-mainnet-services.luckystar.asia/seda/genesis.json)
+### GENESIS&#x20;
 
 [https://seda-mainnet-services.luckystar.asia/seda/genesis.json](https://seda-mainnet-services.luckystar.asia/seda/genesis.json)
 
-### [ADDRBOOK](https://seda-mainnet-services.luckystar.asia/seda/addrbook.json)
+### ADDRBOOK
 
 [https://seda-mainnet-services.luckystar.asia/seda/addrbook.json](https://seda-mainnet-services.luckystar.asia/seda/addrbook.json)
 
-### [API](https://seda-mainnet-api.luckystar.asia/)
+### API
 
 &#x20;[https://seda-mainnet-api.luckystar.asia/](https://seda-mainnet-api.luckystar.asia/)
 
-### [RPC](http://seda-mainnet-rpc.luckystar.asia/)
+### RPC
 
 [https://seda-mainnet-rpc.luckystar.asia/](https://seda-mainnet-api.luckystar.asia/)
