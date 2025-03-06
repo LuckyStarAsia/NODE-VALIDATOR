@@ -8,7 +8,7 @@
 
 [https://explorer.luckystar.asia/XRPLEVM](https://explorer.luckystar.asia/xrpl-Testnet)
 
-### [SNAPSHOT link](../seda/snapshot.md)
+### [SNAPSHOT link](snapshot.md)
 
 ### GENESIS&#x20;
 
