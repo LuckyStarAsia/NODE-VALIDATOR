@@ -84,7 +84,7 @@ sed -i \
   -e 's|^pruning *=.*|pruning = "custom"|' \
   -e 's|^pruning-keep-recent *=.*|pruning-keep-recent = "100"|' \
   -e 's|^pruning-keep-every *=.*|pruning-keep-every = "0"|' \
-  -e 's|^pruning-interval *=.*|pruning-interval = "19"|' \
+  -e 's|^pruning-interval *=.*|pruning-interval = "50"|' \
   $HOME/.warden/config/app.toml
 ```
 ### Set custom ports (OPTION)
