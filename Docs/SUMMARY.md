@@ -1,6 +1,6 @@
 # Table of contents
 
-* [LOGO](README.md)
+* [WELCOME TO LUCKY STAR](README.md)
   * [COSMOS\_eco](../logo/cosmos_eco/README.md)
     * [ARKEO](../LOGO/COSMOS_eco/ARKEO/readme.md)
 * [🟢 MAINNET](../mainnet/README.md)
