@@ -1,7 +1,12 @@
+---
+hidden: true
+---
 
-# Upgrade Warden Version: 0.4.0
+# Upgrade
 
-## X86
+## Upgrade Warden Version: 0.4.0
+
+### X86
 
 ```
 sudo systemctl stop wardend
@@ -20,8 +25,7 @@ sudo systemctl restart wardend
 sudo journalctl -u wardend -f --no-hostname -o cat
 ```
 
-
-## ARM
+### ARM
 
 ```
 sudo systemctl stop wardend
@@ -43,4 +47,4 @@ sudo systemctl restart wardend
 sudo journalctl -u wardend -f --no-hostname -o cat
 ```
 
-# END
+## END

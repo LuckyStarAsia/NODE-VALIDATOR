@@ -24,9 +24,7 @@ wardend rollback --hard
 
 ***
 
-## & Use Cosmovisor
-
-(KHONG CAN `rollback` vi khong bi apphash)
+## Cosmovisor
 
 ```
 sudo systemctl stop wardend

@@ -1,3 +1,7 @@
+---
+hidden: true
+---
+
 # MONITORING
 
 ### Introduction
