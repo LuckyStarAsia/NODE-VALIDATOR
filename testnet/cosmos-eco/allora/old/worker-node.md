@@ -1,45 +1,53 @@
 # Worker Node
 
-### Requirements : 
-Operating System: Ubuntu 22.04
-CPU: Minimum of 1/2 core.
-Memory: 2 to 4 GB.
-Storage: SSD or NVMe with at least 5GB of space.
+### Requirements :
 
-### Install Update / Packages : 
+Operating System: Ubuntu 22.04 CPU: Minimum of 1/2 core. Memory: 2 to 4 GB. Storage: SSD or NVMe with at least 5GB of space.
+
+### Install Update / Packages :
+
 ```
 sudo apt update -y && sudo apt upgrade -y
 ```
+
 ```
 sudo apt install ca-certificates zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev curl git wget make jq build-essential pkg-config lsb-release libssl-dev libreadline-dev libffi-dev gcc screen unzip lz4 -y
 ```
 
 ### Install Python3
+
 ```
 sudo apt install python3
 ```
+
 ```
 sudo apt install python3-pip
 ```
 
 ### Install Docker
+
 ```
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 ```
+
 ```
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 ```
+
 ```
 sudo apt-get update
 ```
+
 ```
 sudo apt-get install docker-ce docker-ce-cli containerd.io
 ```
+
 ```
 docker version
 ```
 
 ### Install Docker-Compose
+
 ```
 VER=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep tag_name | cut -d '"' -f 4)
 ```
@@ -51,17 +59,23 @@ curl -L "https://github.com/docker/compose/releases/download/"$VER"/docker-compo
 ```
 chmod +x /usr/local/bin/docker-compose
 ```
+
 ```
 docker-compose --version
 ```
+
 ### Docker Permission to User
+
 ```
 sudo groupadd docker
 ```
+
 ```
 sudo usermod -aG docker $USER
 ```
+
 ### Install Go
+
 ```
 cd $HOME && \
 ver="1.22.3" && \
@@ -75,16 +89,21 @@ go version
 ```
 
 ### Install Allorad / Wallet
+
 ```
 git clone https://github.com/allora-network/allora-chain.git
 ```
+
 ```
 cd allora-chain && make all
 ```
+
 ```
 allorad version
 ```
+
 ### Add Wallet or Crate Wallet
+
 İf you have `Keplr Wallet` , you can import the wallet.
 
 **Recover your wallet with `seed-phrase`:**
@@ -107,10 +126,10 @@ You Can Add Allora Nework to Wallet - here : `https://explorer.edgenet.allora.ne
 
 `uAllo` faucet : `https://faucet.edgenet.allora.network/`
 
+## Install Worker :
 
+### Install :
 
-## Install Worker : 
-### Install : 
 ```
 git clone https://github.com/allora-network/basic-coin-prediction-node
 ```
@@ -118,16 +137,21 @@ git clone https://github.com/allora-network/basic-coin-prediction-node
 ```
 cd basic-coin-prediction-node
 ```
+
 ```
 mkdir worker-data
 ```
+
 ```
 mkdir head-data
 ```
+
 **Give Certain Permissions :**
+
 ```
 sudo chmod -R 777 worker-data
 ```
+
 ```
 sudo chmod -R 777 head-data
 ```
@@ -137,6 +161,7 @@ sudo chmod -R 777 head-data
 ```
 sudo docker run -it --entrypoint=bash -v ./head-data:/data alloranetwork/allora-inference-base:latest -c "mkdir -p /data/keys && (cd /data/keys && allora-keys)"
 ```
+
 ```
 sudo docker run -it --entrypoint=bash -v ./worker-data:/data alloranetwork/allora-inference-base:latest -c "mkdir -p /data/keys && (cd /data/keys && allora-keys)"
 ```
@@ -148,16 +173,18 @@ This is `your head ID`, you will need it in the next step
 ```
 cat head-data/keys/identity
 ```
+
 ![image](https://github.com/CzCryptoman/BLOCKCHAIN/assets/153280466/ae64f46b-a3f0-44ea-8dd8-8d0c9f5890dc)
 
-### Connect to Allora Chain : 
-Delete and crate a new docker-compose.yml file : 
+### Connect to Allora Chain :
+
+Delete and crate a new docker-compose.yml file :
 
 ```
 rm -rf docker-compose.yml && nano docker-compose.yml
 ```
-Copy And Paste this code : 
-!!!!! Change `head-id` and `Wallet_Seed_Phares` ( 24 Wallet Key ) !!!!
+
+Copy And Paste this code : !!!!! Change `head-id` and `Wallet_Seed_Phares` ( 24 Wallet Key ) !!!!
 
 ```
 version: '3'
@@ -286,29 +313,36 @@ volumes:
   worker-data:
   head-data:
 ```
+
 `CTRL X - Y - Enter`. For save.
 
-### Run The Worker : 
+### Run The Worker :
+
 ```
 docker compose build
 docker compose up -d
 ```
-### Check Node : 
-Check Docker Worker : 
+
+### Check Node :
+
+Check Docker Worker :
+
 ```
 docker ps
 ```
+
 ![image](https://github.com/CzCryptoman/BLOCKCHAIN/assets/153280466/d5d130ac-8eca-43c0-915d-3a3f7997743d)
 
-Replace `container id` with `your container id` : 
+Replace `container id` with `your container id` :
+
 ```
 docker logs -f CONTAINER_ID
 ```
-Success: `register node Tx Hash:=82BF67E2E1247B226B8C5CFCF3E4F41076909ADABF3852C468D087D94BD9FC3B`
-![image](https://github.com/CzCryptoman/BLOCKCHAIN/assets/153280466/168febf1-4edb-495c-91b1-ecab1aaf68ac)
 
+Success: `register node Tx Hash:=82BF67E2E1247B226B8C5CFCF3E4F41076909ADABF3852C468D087D94BD9FC3B` ![image](https://github.com/CzCryptoman/BLOCKCHAIN/assets/153280466/168febf1-4edb-495c-91b1-ecab1aaf68ac)
 
-### Check running node : 
+### Check running node :
+
 ```
 curl --location 'http://localhost:6000/api/v1/functions/execute' \
 --header 'Content-Type: application/json' \
@@ -333,7 +367,9 @@ curl --location 'http://localhost:6000/api/v1/functions/execute' \
     }
 }'
 ```
-Response : 
+
+Response :
+
 ```
 {
   "code": "200",
@@ -358,15 +394,19 @@ Response :
   }
 }
 ```
-### Check Update : 
+
+### Check Update :
+
 ```
 curl http://localhost:8000/update
 ```
-Response : 
-`0`
+
+Response : `0`
+
 ### Check the inference node :
+
 ```
 curl http://localhost:8000/inference/ETH
 ```
-Response : 
-`{"value":"2564.021586281073"}`
+
+Response : `{"value":"2564.021586281073"}`

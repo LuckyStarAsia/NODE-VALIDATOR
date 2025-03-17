@@ -1,100 +1,120 @@
+# Command
 
-# COMMAND
+## COMMAND
 
-## Service operations ⚙️
-### Check logs
+### Service operations ⚙️
+
+#### Check logs
+
 ```
 sudo journalctl -u fiammad -f
 ```
 
-### Start service
+#### Start service
+
 ```
 sudo systemctl start fiammad
 ```
 
-### Stop service
+#### Stop service
+
 ```
 sudo systemctl stop fiammad
 ```
 
-### Restart service
+#### Restart service
+
 ```
 sudo systemctl restart fiammad
 ```
 
-### Check service status
+#### Check service status
+
 ```
 sudo systemctl status fiammad
 ```
 
-### Reload services
+#### Reload services
+
 ```
 sudo systemctl daemon-reload
 ```
 
-### Enable Service
+#### Enable Service
+
 ```
 sudo systemctl enable fiammad
 ```
 
-### Disable Service
+#### Disable Service
+
 ```
 sudo systemctl disable fiammad
 ```
 
-### Node info
+#### Node info
+
 ```
 fiammad status 2>&1 | jq
 ```
 
-### Your node peer
+#### Your node peer
+
 ```
 echo $(fiammad tendermint show-node-id)'@'$(wget -qO- eth0.me)':'$(cat $HOME/.fiamma/config/config.toml | sed -n '/Address to listen for incoming connection/{n;p;}' | sed 's/.*://; s/".*//')
 ```
 
-## Key management
+### Key management
 
-### Add New Wallet
+#### Add New Wallet
+
 ```
 fiammad keys add $WALLET
 ```
 
-### Restore executing wallet
+#### Restore executing wallet
+
 ```
 fiammad keys add $WALLET --recover
 ```
 
-### List All Wallets
+#### List All Wallets
+
 ```
 fiammad keys list
 ```
 
-### Delete wallet
+#### Delete wallet
+
 ```
 fiammad keys delete $WALLET
 ```
 
-### Check Balance
+#### Check Balance
+
 ```
 fiammad q bank balances $WALLET_ADDRESS 
 ```
 
-### Export Key (save to wallet.backup)
+#### Export Key (save to wallet.backup)
+
 ```
 fiammad keys export $WALLET
 ```
 
-### View EVM Prived Key
+#### View EVM Prived Key
+
 ```
 fiammad keys unsafe-export-eth-key $WALLET
 ```
 
-### Import Key (restore from wallet.backup)
+#### Import Key (restore from wallet.backup)
+
 ```
 fiammad keys import $WALLET wallet.backup
 ```
 
-## Tokens
+### Tokens
 
 To valoper address
 
@@ -104,47 +124,55 @@ Amount, ufia
 
 1000000
 
-### Withdraw all rewards
+#### Withdraw all rewards
+
 ```
 fiammad tx distribution withdraw-all-rewards --from $WALLET --chain-id fiamma-testnet-1 --gas auto --gas-adjustment 1.5 
 ```
 
-### Withdraw rewards and commission from your validator
+#### Withdraw rewards and commission from your validator
+
 ```
 fiammad tx distribution withdraw-rewards $VALOPER_ADDRESS --from $WALLET --commission --chain-id fiamma-testnet-1 --gas auto --gas-adjustment 1.5 -y 
 ```
 
-### Check your balance
+#### Check your balance
+
 ```
 fiammad query bank balances $WALLET_ADDRESS
 ```
 
-### Delegate to Yourself
+#### Delegate to Yourself
+
 ```
 fiammad tx staking delegate $(fiammad keys show $WALLET --bech val -a) 1000000ufia --from $WALLET --chain-id fiamma-testnet-1 --gas auto --gas-adjustment 1.5 -y 
 ```
 
-### Delegate
+#### Delegate
+
 ```
 fiammad tx staking delegate <TO_VALOPER_ADDRESS> 1000000ufia --from $WALLET --chain-id fiamma-testnet-1 --gas auto --gas-adjustment 1.5 -y 	
 ```
 
-### Redelegate Stake to Another Validator
+#### Redelegate Stake to Another Validator
+
 ```
 fiammad tx staking redelegate $VALOPER_ADDRESS <TO_VALOPER_ADDRESS> 1000000ufia --from $WALLET --chain-id fiamma-testnet-1 --gas auto --gas-adjustment 1.5 -y 
 ```
 
-### Unbond
+#### Unbond
+
 ```
 fiammad tx staking unbond $(fiammad keys show $WALLET --bech val -a) 1000000ufia --from $WALLET --chain-id fiamma-testnet-1 --gas auto --gas-adjustment 1.5 -y 
 ```
 
-### Transfer Funds
+#### Transfer Funds
+
 ```
 fiammad tx bank send $WALLET_ADDRESS <TO_WALLET_ADDRESS> 1000000ufia --gas auto --gas-adjustment 1.5 -y 
 ```
 
-## Validator operations
+### Validator operations
 
 Moniker
 
@@ -154,15 +182,14 @@ Details: I love Fiamma
 
 Amount: 1000000 ufia
 
-
-
-Commission rate:  0.1
+Commission rate: 0.1
 
 Commission max rate: 0.2
 
 Commission max change rate: 0.01
 
-### Create New Validator
+#### Create New Validator
+
 ```
 fiammad tx staking create-validator \
 --amount 1000000ufia \
@@ -180,7 +207,8 @@ fiammad tx staking create-validator \
 -y 
 ```
 
-### Edit Existing Validator
+#### Edit Existing Validator
+
 ```
 fiammad tx staking edit-validator \
 --commission-rate 0.1 \
@@ -194,47 +222,55 @@ fiammad tx staking edit-validator \
 -y 
 ```
 
-### Validator info
+#### Validator info
+
 ```
 fiammad status 2>&1 | jq
 ```
 
-### Validator Details
+#### Validator Details
+
 ```
 fiammad q staking validator $(fiammad keys show $WALLET --bech val -a) 
 ```
 
-### Jailing info
+#### Jailing info
+
 ```
 fiammad q slashing signing-info $(fiammad tendermint show-validator) 
 ```
 
-### Slashing parameters
+#### Slashing parameters
+
 ```
 fiammad q slashing params 
 ```
 
-### Unjail validator
+#### Unjail validator
+
 ```
 fiammad tx slashing unjail --from $WALLET --chain-id fiamma-testnet-1 --gas auto --gas-adjustment 1.5 -y 
 ```
 
-### Active Validators List
+#### Active Validators List
+
 ```
 fiammad q staking validators -oj --limit=2000 | jq '.validators[] | select(.status=="BOND_STATUS_BONDED")' | jq -r '(.tokens|tonumber/pow(10; 6)|floor|tostring) + " 	 " + .description.moniker' | sort -gr | nl 
 ```
 
-### Check Validator key
+#### Check Validator key
+
 ```
 [[ $(fiammad q staking validator $VALOPER_ADDRESS -oj | jq -r .consensus_pubkey.key) = $(fiammad status | jq -r .ValidatorInfo.PubKey.value) ]] && echo -e "Your key status is ok" || echo -e "Your key status is error"
 ```
 
-### Signing info
+#### Signing info
+
 ```
 fiammad q slashing signing-info $(fiammad tendermint show-validator) 
 ```
 
-## Governance
+### Governance
 
 Title
 
@@ -242,7 +278,8 @@ Description
 
 Deposit: 1000000 ufia
 
-### Create New Text Proposal
+#### Create New Text Proposal
+
 ```
 fiammad  tx gov submit-proposal \
 --title "" \
@@ -254,26 +291,26 @@ fiammad  tx gov submit-proposal \
 -y 
 ```
 
+#### Proposals List
 
-### Proposals List
 ```
 fiammad query gov proposals 
 ```
 
-Proposal ID
-1
+Proposal ID 1
 
 Proposal option: YesNoNo with vetoAbstain
 
-### View proposal
+#### View proposal
+
 ```
 fiammad query gov proposal 1 
 ```
 
-### Vote
+#### Vote
+
 ```
 fiammad tx gov vote 1 yes --from $WALLET --chain-id fiamma-testnet-1  --gas auto --gas-adjustment 1.5 -y
 ```
 
-
-# END
+## END

@@ -1,5 +1,6 @@
+# install
 
-# Fairblock
+## Fairblock
 
 Fairblock is revolutionizing blockchain networks by addressing the critical need for encryption, a barrier to global adoption. By offering programmable encryption solutions, Fairblock integrates advanced cryptographic schemes like threshold identity-based encryption (tIBE) and threshold fully homomorphic encryption (tFHE) into both application frontends and protocol levels.
 
@@ -21,32 +22,29 @@ Available Explorers:
 
 Website:
 
-Public    Endpoints
+Public Endpoints
 
-`RPC:`    `https://fairblock-testnet-rpc.crouton.digital`
-`API:`    `https://fairblock-testnet-api.crouton.digital`
-`gRPC:`   `fairblock-testnet-api.crouton.digital:28890`
-`peer:`   `a3a5f46aae6af829e5070f7182c3d178a091a64d@65.109.93.124:28856`
+`RPC:` `https://fairblock-testnet-rpc.crouton.digital` `API:` `https://fairblock-testnet-api.crouton.digital` `gRPC:` `fairblock-testnet-api.crouton.digital:28890` `peer:` `a3a5f46aae6af829e5070f7182c3d178a091a64d@65.109.93.124:28856`
 
-## Prepare
+### Prepare
 
-### Update and install packages
+#### Update and install packages
 
 This command updates and installs various packages needed for development and system administration. It includes tools for networking, archiving, compiling, version control, and other essential utilities.
+
 ```
 sudo apt update && sudo apt upgrade -y && \
 sudo apt install curl tar wget clang pkg-config libssl-dev libleveldb-dev jq build-essential bsdmainutils git make ncdu htop screen unzip bc fail2ban htop lz4 -y
 ```
 
-## Details 📚
+### Details 📚
 
-### Installing Go v1.21.6
+#### Installing Go v1.21.6
 
 This command downloads and installs go version go1.21.6 linux/amd64. It sets up the Go environment by updating the PATH variable and verifies the installation.
 
+GO\_VERSION: `1.21.6`
 
-
-GO_VERSION: `1.21.6`
 ```
 cd $HOME && \ 
 wget "https://golang.org/dl/go1.21.6.linux-amd64.tar.gz" && \
@@ -58,11 +56,11 @@ source $HOME/.bash_profile && \
 go version
 ```
 
-## Installing fairblock binary
+### Installing fairblock binary
 
 This command installs the fairblock binary, offering two methods: building from source or downloading a prebuilt binary.
 
-### Building from Source
+#### Building from Source
 
 ```
 git clone https://github.com/Fairblock/fairyring.git fairblock 
@@ -77,7 +75,7 @@ fairyringd version --long | grep -e version -e commit
 
 OR:
 
-### Download Prebuilt Binary
+#### Download Prebuilt Binary
 
 ```
 wget https://storage.crouton.digital/testnet/fairblock/bin/fairyringd
@@ -89,10 +87,9 @@ fairyringd version --long | grep -e version -e commit
 # commit: 248c5546b299f2c79147c52f2aaf2578f32bc651
 ```
 
+#### Initialization
 
-### Initialization
 This command initializes the node with a given moniker (node name) and chain ID, then sets the client configuration to use the specified chain ID and a test keyring backend.
-
 
 MONIKER: `VALIDATOR_NAME`
 
@@ -102,27 +99,27 @@ fairyringd config chain-id fairyring-testnet-1 && \
 fairyringd config keyring-backend test
 ```
 
-
-### Download genesis
+#### Download genesis
 
 The genesis file is essential for starting the blockchain. It contains the initial state of the blockchain and is typically downloaded from the official hosting site or a trusted mirror. Our genesis file is uploaded from a fully-synced node, but it is always recommended to verify its contents.
+
 ```
 wget https://storage.crouton.digital/testnet/fairblock/files/genesis.json -O $HOME/.fairyring/config/genesis.json
 ```
 
-### Download addrbook
+#### Download addrbook
 
 An addrbook.json file helps your node connect to other peers in the network. If you experience peering issues, using a good addrbook.json can solve the problem.
+
 ```
 wget https://storage.crouton.digital/testnet/fairblock/files/addrbook.json -O $HOME/.fairyring/config/addrbook.json
 ```
 
-### Configuration
+#### Configuration
 
 Change ports (Optional)
 
 This script changes the ports used by various services in the config.toml and app.toml files based on your node number. It also sets an environment variable for the node's local address. This step is optional and can help avoid port conflicts.
-
 
 NODE-NUMBER: `1`
 
@@ -149,7 +146,7 @@ source $HOME/.bash_profile && \
 fairyringd config node $NODE
 ```
 
-### Web Services (Optional)
+#### Web Services (Optional)
 
 This optional step allows you to configure web services for your node. You can open the RPC address, enable or disable API, gRPC, gRPC-Web, and JSON-RPC services, and set the minimum gas prices.
 
@@ -157,11 +154,11 @@ RPC-OPEN: `127.0.0.1`
 
 API-ENABLE: `false`
 
-gRPC-ENABLE:  `false`
+gRPC-ENABLE: `false`
 
-gRPC-WEB-ENABLE:  `false`
+gRPC-WEB-ENABLE: `false`
 
-JSON-RPC-ENABLE:  `false`
+JSON-RPC-ENABLE: `false`
 
 GAS-PRICE: `0.001`
 
@@ -174,11 +171,9 @@ sed -i.bak -e "/^\[json-rpc\]/,/^enable/s|^enable *=.*|enable = 'false'|"       
 sed -i.bak -e "s|^minimum-gas-prices *=.*|minimum-gas-prices = '0.001ufairy'|"                          $HOME/.fairyring/config/app.toml
 ```
 
-### Pruning (Optional)
+#### Pruning (Optional)
 
 This optional step allows you to configure pruning settings for your node. You can enable or disable the indexer, set custom pruning options, and define intervals for pruning and snapshots to optimize disk space usage.
-
-
 
 INDEXER-ENABLE: `null`
 
@@ -201,7 +196,7 @@ sed -i.bak -e "s/^pruning-interval *=.*/pruning-interval = \"17\"/"             
 sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \"100\"/"                                  $HOME/.fairyring/config/app.toml
 ```
 
-### Create a service file
+#### Create a service file
 
 Create a service file to manage the node with systemd.
 
@@ -237,7 +232,7 @@ sudo journalctl -u fairyringd -f -o cat
 
 This will create a systemd service for your node, enable it to start on boot, and start it immediately. You can monitor the node's logs using `journalctl`.
 
-### Recover
+#### Recover
 
 These steps will help you recover your node either by downloading a snapshot.
 
@@ -250,11 +245,10 @@ mv $HOME/.fairyring/priv_validator_state.json.backup $HOME/.fairyring/data/priv_
 sudo systemctl restart fairyringd && sudo journalctl -u fairyringd -f
 ```
 
-### Upgrade Node
+#### Upgrade Node
 
+APP\_VERSION: `v0.6.0`
 
-
-APP_VERSION: `v0.6.0`
 ```
 cd fairblock 
 git pull
@@ -263,7 +257,8 @@ make install
 sudo systemctl restart fairyringd && sudo journalctl -u fairyringd -f
 ```
 
-### Delete Node
+#### Delete Node
+
 ```
 sudo systemctl stop fairyringd
 sudo systemctl disable fairyringd
@@ -272,67 +267,69 @@ sudo rm $(which fairyringd)
 sudo rm -rf $HOME/.fairyring
 ```
 
-## Key management
-
+### Key management
 
 WALLET: `wallet`
 
-### Add New Wallet
+#### Add New Wallet
 
 This command generates a new wallet with a unique keypair.
 
 Use this to create a secure, brand-new wallet for transactions.
+
 ```
 fairyringd keys add wallet 
 ```
 
-### Recover Wallet
+#### Recover Wallet
+
 ```
 # This command restores a wallet using a mnemonic phrase.
 # Ideal for accessing a previously created wallet on a new device.
 fairyringd keys add wallet --recover
 ```
 
-### Delete Wallet
+#### Delete Wallet
+
 ```
 # This command removes a wallet from the node's key management system.
 # Ensure you have backed up the key before deleting, as this action is irreversible.
 fairyringd keys delete wallet
-``` 
+```
 
+#### List All Wallets
 
-### List All Wallets
 ```
 # This command lists all the wallets managed by the node.
 # Useful for getting an overview of all available wallets and their statuses.
 fairyringd keys list
-``` 
+```
 
+#### Export Key
 
-### Export Key
 ```
 # This command exports the wallet's private key to a file.
 # Use this to backup your wallet's key securely.
 fairyringd keys export wallet > wallet.backup
 ```
 
-### Import Key
+#### Import Key
+
 ```
 # This command imports a wallet key from a backup file.
 # Essential for restoring wallet access from a previously exported key file.
 fairyringd keys import wallet  wallet.backup
 ```
 
-## Validator management
-
+### Validator management
 
 MONIKER: `VALIDATOR_NAME`
- 
-IDENTITY: 
- 
-WEBSITE: 
- 
-DETAILS: 
+
+IDENTITY:
+
+WEBSITE:
+
+DETAILS:
 
 WALLET: `wallet`
 
@@ -342,8 +339,8 @@ MAX-RATE: `0.2`
 
 CHANGE-RATE: `0.01`
 
+#### Create Validator
 
-### Create Validator
 ```
 fairyringd tx staking create-validator \
 --amount 1000000ufairy \
@@ -363,7 +360,8 @@ fairyringd tx staking create-validator \
 -y 
 ```
 
-### Edit Validator
+#### Edit Validator
+
 ```
 fairyringd tx staking edit-validator \
 --moniker "VALIDATOR_NAME" \
@@ -378,47 +376,51 @@ fairyringd tx staking edit-validator \
 -y 
 ```
 
-
 WALLET: `wallet`
 
-### Validator Details
+#### Validator Details
+
 ```
 # Retrieves comprehensive information regarding the validator.
 # This command is utilized to fetch details about the current validator, including its address, public key, and associated data.
 fairyringd q staking validator $(fairyringd keys show wallet --bech val -a) 
 ```
 
+#### Signing Info
 
-### Signing Info
 ```
 # Fetches information about the validator's signing behavior.
 # This command extracts details concerning the signing behavior associated with the current validator, including missed block counts and other security-related parameters.
 fairyringd q slashing signing-info $(fairyringd tendermint show-validator) 
-``` 
+```
 
-### Slashing Parameters
+#### Slashing Parameters
+
 ```
 # Retrieves parameters pertinent to slashing.
 # This command extracts the current parameters governing slashing, such as threshold values for penalties and punishment durations.
 fairyringd q slashing params 
-``` 
+```
 
-### Check Key
+#### Check Key
+
 ```
 # Validates the status of your key.
 # This command compares the public key of your validator with the key associated with your node to ensure that the key is in an up-to-date state.
 [[ $(fairyringd q staking validator $(fairyringd keys show wallet  --bech val -a) -oj | jq -r .consensus_pubkey.key) == $(fairyringd status | jq -r .ValidatorInfo.PubKey.value) ]]
 echo -e "Your key status is ok" || echo -e "Your key status is error"
-``` 
+```
 
-### Jailing Info
+#### Jailing Info
+
 ```
 # Retrieves information about validator penalties.
 # This command fetches details about current penalties imposed on the validator, including information about blocks where signatures were missed.
 fairyringd q slashing signing-info $(fairyringd tendermint show-validator) 
 ```
 
-### Active Set
+#### Active Set
+
 ```
 # Obtains details of the active set of validators.
 # This command retrieves information about all validators currently in the active set, their current statuses, and other associated parameters.
@@ -426,9 +428,10 @@ fairyringd q staking validators -o json --limit=1000 \
 | jq '.validators[] | select(.status=="BOND_STATUS_BONDED")' \
 | jq -r '.tokens + " - " + .description.moniker' \
 | sort -gr | nl
-``` 
+```
 
-### Inactive Set
+#### Inactive Set
+
 ```
 # Obtains details of the inactive set of validators.
 # This command fetches information about all validators currently in the inactive set, their current statuses, and other associated parameters.
@@ -436,71 +439,74 @@ fairyringd q staking validators -o json --limit=1000 \
 | jq '.validators[] | select(.status=="BOND_STATUS_UNBONDED")' \
 | jq -r '.tokens + " - " + .description.moniker' \
 | sort -gr | nl
-``` 
+```
 
-
- 
-## Onchain
-
+### Onchain
 
 WALLET: `wallet`
 
-### Withdraw Rewards
+#### Withdraw Rewards
+
 ```
 # Withdraw all accumulated rewards from your account.
 # This command retrieves and withdraws all rewards earned from staking.
 fairyringd tx distribution withdraw-all-rewards --from wallet --chain-id fairyring-testnet-1 --gas-adjustment=1.15 --gas auto --gas-prices 80000ufairy -y
 ```
 
-### Withdraw Rewards & Commission
+#### Withdraw Rewards & Commission
+
 ```
 # Withdraw rewards and commission earned from your validator.
 # Use this command to claim both validator rewards and commission earnings.
 fairyringd tx distribution withdraw-rewards  --from wallet --commission --chain-id fairyring-testnet-1 --gas-adjustment=1.15 --gas auto 80000ufairy -y 
 ```
 
-### Check Balance
+#### Check Balance
+
 ```
 # Check the balance of your account.
 # This command displays the current balance of your account.
 fairyringd query bank balances $WALLET_ADDRESS
-``` 
+```
 
-### Delegate to Self
+#### Delegate to Self
+
 ```
 # Delegate tokens from your account to yourself as a validator.
 # This command allows you to stake tokens on your own validator node.
 fairyringd tx staking delegate $(fairyringd keys show wallet --bech val -a) 1000000ufairy --from wallet --chain-id fairyring-testnet-1 --gas-adjustment=1.15 --gas auto --gas-prices 80000ufairy -y 
-``` 
+```
 
-### Delegate to Other
+#### Delegate to Other
+
 ```
 # Delegate tokens to another validator.
 # Use this command to stake tokens on a validator other than yourself.
  
 ```
 
-### Redelegate Stake
+#### Redelegate Stake
+
 ```
 # Redelegate tokens from one validator to another.
 # This command allows you to switch your stake from one validator to another.
  
 ```
 
-### Unbond Tokens
+#### Unbond Tokens
+
 ```
 # Unbond tokens from staking.
 # Use this command to initiate the unbonding process for your staked tokens.
  
 ```
 
-### Transfer Funds
+#### Transfer Funds
+
 ```
 # Transfer funds to another account.
 # This command allows you to send tokens to another account on the network.
  
 ```
 
-# END
-
- 
+## END

@@ -1,26 +1,33 @@
+# fix-AppHash
 
-# Roll back: 
-(20241031) 
+## Roll back:
+
+(20241031)
 
 Hello again Validators!
 
-We have now identified the issue causing the AppHash errors during the last few days!
-The issue was caused by bad combination of mempool configurations that are not compatible with EVMOS.
-This then caused some validators to have different AppHashes for blocks.
+We have now identified the issue causing the AppHash errors during the last few days! The issue was caused by bad combination of mempool configurations that are not compatible with EVMOS. This then caused some validators to have different AppHashes for blocks.
 
 We have made a new release v0.5.3 that forces the NoOp mempool configuration for the node.
 
 These are the steps to fix your node:
-- Stop your node
-- Update to binary v0.5.3
-- Do a 
+
+* Stop your node
+* Update to binary v0.5.3
+* Do a
+
 ```
 wardend rollback --hard
 ```
-- Start your node
-******************************************************************************************************************************
-# & Use Cosmovisor
+
+* Start your node
+
+***
+
+## & Use Cosmovisor
+
 (KHONG CAN `rollback` vi khong bi apphash)
+
 ```
 sudo systemctl stop wardend
 ```
@@ -43,15 +50,19 @@ cp $HOME/go/bin/wardend $HOME/.warden/cosmovisor/genesis/bin/
 ```
 
 Check version:
+
 ```
 $HOME/go/bin/wardend version --long | tail
 ```
+
 or
+
 ```
 $HOME/.warden/cosmovisor/genesis/bin/wardend version --long | tail
 ```
 
 result:
+
 ```
 - pgregory.net/rapid@v1.1.0
 - sigs.k8s.io/yaml@v1.4.0
@@ -65,12 +76,14 @@ version: 0.5.3
 ```
 
 Download and install Cosmovisor
+
 ```
 cd $HOME
 go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@latest
 ```
 
 Create service:
+
 ```
 sudo tee /etc/systemd/system/wardend.service > /dev/null << EOF
 [Unit]
@@ -97,12 +110,8 @@ WantedBy=multi-user.target
 EOF
 ```
 
-
 ```
 sudo systemctl daemon-reload
 sudo systemctl enable wardend
 sudo systemctl restart wardend
 ```
-
-
-

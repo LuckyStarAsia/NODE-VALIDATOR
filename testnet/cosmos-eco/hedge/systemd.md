@@ -1,11 +1,11 @@
-🧊Hedge Block
-Hedge is a pioneering blockchain network built with state-of-the-art M-sig transaction protocols to make your on-chain transactions faster and more reliable.
+# Systemd
 
-website: https://hedgeblock.io/
-x: https://twitter.com/hedgeblockio
-discord: https://discord.gg/63TDBe9cyg
+🧊Hedge Block Hedge is a pioneering blockchain network built with state-of-the-art M-sig transaction protocols to make your on-chain transactions faster and more reliable.
 
-# Public Endpoints:
+website: https://hedgeblock.io/ x: https://twitter.com/hedgeblockio discord: https://discord.gg/63TDBe9cyg
+
+## Public Endpoints:
+
 ```
 RPC: https://rpc-berberis.hedgeblock.io/
 API: https://hedge-api.validatorvn.com/
@@ -29,42 +29,51 @@ bd7b10a3497c6e9254fee5ce6ace0b3a1c80ca12@116.111.217.237:35656
 0c154a9555f551a72c429e5b993f33d13556db0e@193.26.159.34:10656
 42a3c66843b0961c6caf501e0819d693304c412f@164.68.121.28:26656
 ```
-# Manual Install
-## Update && Upgrade:
+
+## Manual Install
+
+### Update && Upgrade:
 
 ```
 sudo apt update && sudo apt upgrade -y
 ```
 
-## Install package:
+### Install package:
+
 ```
 sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential git make lz4 unzip ncdu -y
 ```
 
-## Install GO:
+### Install GO:
+
 ```
 ver="1.22.3" 
 cd $HOME 
 wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz" 
 ```
+
 ```
 sudo rm -rf /usr/local/go 
 sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz" 
 rm "go$ver.linux-amd64.tar.gz"
 ```
+
 ```
 echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
-## Install Node:
 
-### Dowload ibwasmvm.x86_64.so
+### Install Node:
+
+#### Dowload ibwasmvm.x86\_64.so
+
 ```
 set -eux; \
   wget -O /lib/libwasmvm.x86_64.so https://github.com/CosmWasm/wasmvm/releases/download/v1.3.0/libwasmvm.x86_64.so
 ```
 
-### Dowload Hedged:
+#### Dowload Hedged:
+
 ```
 mkdir -p $HOME/go/bin
 sudo wget -O hedged https://github.com/hedgeblock/testnets/releases/download/v0.1.0/hedged_linux_amd64_v0.1.0
@@ -72,8 +81,8 @@ chmod +x hedged
 sudo mv hedged $HOME/go/bin
 ```
 
+#### 4. Set up variables
 
-### 4. Set up variables
 ```bash
 # Customize if you need
 echo 'export MONIKER="My_Node"' >> ~/.bash_profile
@@ -83,7 +92,8 @@ echo 'export RPC_PORT="25557"' >> ~/.bash_profile
 source $HOME/.bash_profile
 ```
 
-### 5. Initialize & Config the node
+#### 5. Initialize & Config the node
+
 ```bash
 cd $HOME
 hedged init $MONIKER --chain-id $CHAIN_ID
@@ -91,15 +101,17 @@ hedged config set client chain-id $CHAIN_ID
 hedged config set client node tcp://localhost:$RPC_PORT
 hedged config set client keyring-backend os # You can set it to "test" so you will not be asked for a password
 ```
-OR: 
+
+OR:
+
 ```
 hedged config chain-id berberis-1
 hedged config keyring-backend test
 hedged init "Moniker" --chain-id berberis-1
 ```
 
+#### 6. Change ports (Optional)
 
-### 6. Change ports (Optional)
 ```bash
 # Customize if you need
 EXTERNAL_IP=$(wget -qO- eth0.me) \
@@ -110,6 +122,7 @@ API_PORT=1317 \
 GRPC_PORT=8080 \
 GRPC_WEB_PORT=8081
 ```
+
 ```bash
 sed -i \
     -e "s/\(proxy_app = \"tcp:\/\/\)\([^:]*\):\([0-9]*\).*/\1\2:$PROXY_APP_PORT\"/" \
@@ -119,6 +132,7 @@ sed -i \
     -e "/\[p2p\]/,/^\[/{s/\(external_address = \"\)\([^:]*\):\([0-9]*\).*/\1${EXTERNAL_IP}:$P2P_PORT\"/; t; s/\(external_address = \"\).*/\1${EXTERNAL_IP}:$P2P_PORT\"/}" \
     $HOME/.hedge/config/config.toml
 ```
+
 ```bash
 sed -i \
     -e "/\[api\]/,/^\[/{s/\(address = \"tcp:\/\/\)\([^:]*\):\([0-9]*\)\(\".*\)/\1\2:$API_PORT\4/}" \
@@ -127,24 +141,26 @@ sed -i \
     $HOME/.hedge/config/app.toml
 ```
 
-
-
-### Genesis & Addrbook:
+#### Genesis & Addrbook:
 
 Genesis (ok):
+
 ```
 wget https://github.com/CzCryptoman/BLOCKCHAIN/blob/main/TESTNET/Hedge/genesis.json -O $HOME/.hedge/config/genesis.json
 ```
- (Genesis ERROR!)??
- 
+
+(Genesis ERROR!)??
+
 ```
 sudo wget -O $HOME/.hedge/config/genesis.json "https://github.com/hedgeblock/testnets/blob/release/dev/testnets/berberis-1/genesis/genesis.json"
 ```
 
 Addrbook:
+
 ```
 sudo wget -O $HOME/.hedge/config/addrbook.json "https://raw.githubusercontent.com/ValidatorVN/GuideNode/main/Hedge/addrbook.json"
 ```
+
 ```
 sed -i.bak -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.025uhedge\"/;" ~/.hedge/config/app.toml
 peers=""
@@ -155,7 +171,8 @@ sed -i 's/max_num_inbound_peers =.*/max_num_inbound_peers = 50/g' $HOME/.hedge/c
 sed -i 's/max_num_outbound_peers =.*/max_num_outbound_peers = 50/g' $HOME/.hedge/config/config.toml
 ```
 
-### Pruning and indexer
+#### Pruning and indexer
+
 ```
 pruning="custom" && \
 pruning_keep_recent="100" && \
@@ -167,7 +184,8 @@ sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every
 sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/.hedge/config/app.toml
 ```
 
-## Create Service:
+### Create Service:
+
 ```
 sudo tee /etc/systemd/system/hedged.service > /dev/null <<EOF
 [Unit]
@@ -183,28 +201,33 @@ LimitNOFILE=65535
 WantedBy=multi-user.target
 EOF
 ```
+
 ```
 sudo systemctl daemon-reload
 sudo systemctl enable hedged
 ```
 
-## Check Logs:
+### Check Logs:
+
 ```
 sudo systemctl start hedged && journalctl -u hedged -f -o cat
 ```
 
-## Statesync:
+### Statesync:
+
 ```
 sudo systemctl stop hedged
 hedged tendermint unsafe-reset-all --home ~/.hedge/ --keep-addr-book
 SNAP_RPC="https://hedge-rpc.validatorvn.com:443"
 ```
+
 ```
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 1000)); \
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
 echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
 ```
+
 ```
 sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
 s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
@@ -214,119 +237,149 @@ more ~/.hedge/config/config.toml | grep 'rpc_servers'
 more ~/.hedge/config/config.toml | grep 'trust_height'
 more ~/.hedge/config/config.toml | grep 'trust_hash'
 ```
+
 ```
 sudo systemctl restart hedged && journalctl -u hedged -f -o cat
 ```
-# Command
-### Add New Key
+
+## Command
+
+#### Add New Key
+
 ```
 hedged keys add wallet
 ```
 
-### Recover Existing Key
+#### Recover Existing Key
+
 ```
 hedged keys add wallet --recover
 ```
 
-### List All Keys
+#### List All Keys
+
 ```
 hedged keys list
 ```
 
-### Delete Key
+#### Delete Key
+
 ```
 hedged keys delete wallet
 ```
 
-### Export Key (save to wallet.backup)
+#### Export Key (save to wallet.backup)
+
 ```
 hedged keys export wallet
 ```
 
-### Import Key
+#### Import Key
+
 ```
 hedged keys import wallet wallet.backup
 ```
 
-### Query Wallet Balance
+#### Query Wallet Balance
+
 ```
 hedged q bank balances $(hedged keys show wallet -a) 
 ```
 
-### Check Balance:
+#### Check Balance:
+
 ```
 hedged q bank balances $(hedged keys show wallet -a)
 ```
 
-### Create a Validator:
+#### Create a Validator:
+
 ```
 hedged tx staking create-validator --amount=1000000uhedge --pubkey=$(hedged tendermint show-validator) --moniker="Moniker" --chain-id=berberis-1 --commission-rate=0.10 --commission-max-rate=0.20 --commission-max-change-rate=0.1 --min-self-delegation=1 --from=wallet --gas-prices=0.025uhedge --gas-adjustment=1.5 --gas=auto -y
 ```
-### Withdraw rewards:
+
+#### Withdraw rewards:
+
 ```
 hedged tx distribution withdraw-rewards $(hedged keys show wallet --bech val -a) --commission --from wallet --chain-id berberis-1 --gas-prices=0.025uhedge --gas-adjustment=1.5 --gas=auto -y
 ```
 
-### Delegate to your self:
+#### Delegate to your self:
+
 ```
 hedged tx staking delegate $(hedged keys show wallet --bech val -a) 1000000uhedge --from wallet --chain-id berberis-1 --gas-prices=0.025uhedge --gas-adjustment=1.5 --gas=auto -y
 ```
-### Query your validator
+
+#### Query your validator
+
 ```bash
 hedged q staking validator $(hedged keys show wallet --bech val -a) 
 ```
-### Query missed blocks counter & jail details of your validator
+
+#### Query missed blocks counter & jail details of your validator
+
 ```bash
 hedged q slashing signing-info $(hedged tendermint show-validator)
 ```
 
-### Unjail:
+#### Unjail:
+
 ```
 hedged tx slashing unjail --from wallet --chain-id=berberis-1 --gas-prices=0.025uhedge --gas-adjustment=1.5 --gas=auto -y 
 ```
 
-### Get Validator Info
+#### Get Validator Info
+
 ```
 hedged status 2>&1 | jq -r '.ValidatorInfo // .validator_info'
 ```
 
-### Get Denom Info
+#### Get Denom Info
+
 ```
 hedged q bank denom-metadata -oj | jq
 ```
 
-### Get Sync Status
+#### Get Sync Status
+
 ```
 hedged status 2>&1 | jq -r '.SyncInfo.catching_up // .sync_info.catching_up'
 ```
 
-### Get Latest Height
+#### Get Latest Height
+
 ```
 hedged status 2>&1 | jq -r '.SyncInfo.latest_block_height // .sync_info.latest_block_height'
 ```
 
-### Get Peer
+#### Get Peer
+
 ```
 echo $(hedged tendermint show-node-id)'@'$(curl -s ifconfig.me)':'$(cat $HOME/.hedge/config/config.toml | sed -n '/Address to listen for incoming connection/{n;p;}' | sed 's/.*://; s/".*//')
 ```
-### Reset Node
+
+#### Reset Node
+
 ```
 hedged tendermint unsafe-reset-all --home $HOME/.hedge --keep-addr-book
 ```
 
-### Remove Node
+#### Remove Node
+
 ```
 sudo systemctl stop hedged && sudo systemctl disable hedged && sudo rm /etc/systemd/system/hedged.service && sudo systemctl daemon-reload && rm -rf $HOME/.hedge && rm -rf hedge && sudo rm -rf $(which hedged) 
 ```
 
+### GET PEER:
 
-## GET PEER: 
-### Get NODE peer:
+#### Get NODE peer:
+
 ```
 echo $(hedged tendermint show-node-id)'@'$(curl -s ifconfig.me)':'$(cat .hedge/config/config.toml | sed -n '/Address to listen for incoming connection/{n;p;}' | sed 's/.*://; s/".*//')
 ```
 
-### Get live peers:
+#### Get live peers:
+
 ```
 curl -sS http://localhost:26657/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}'
 ```

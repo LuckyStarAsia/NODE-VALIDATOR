@@ -1,10 +1,12 @@
-### Make sure you have uALLO faucet on `testnet-1` in your wallet in order to register 2nd worker
+# Upgrade Worker V2
+
+#### Make sure you have uALLO faucet on `testnet-1` in your wallet in order to register 2nd worker
 
 Get uAllo faucet [here](https://faucet.testnet-1.testnet.allora.network/)
 
-# UPGRADE WORKER v2 from v1.
+## UPGRADE WORKER v2 from v1.
 
-### Steps:
+#### Steps:
 
 ```console
 cd $HOME && cd basic-coin-prediction-node
@@ -16,9 +18,9 @@ docker container stop worker-basic-eth-pred
 docker container rm worker-basic-eth-pred
 ```
 
-## `Remove all container & images`
+### `Remove all container & images`
 
-## UPGRADE ALLORAD:
+### UPGRADE ALLORAD:
 
 ```
 cd $HOME 
@@ -28,10 +30,7 @@ cd allora-chain && make all
 allorad version
 ```
 
-
-
-
-## INSTALL WORKER:
+### INSTALL WORKER:
 
 ```console
 cd $HOME && cd basic-coin-prediction-node
@@ -47,26 +46,22 @@ sudo chmod -R 777 workers/worker-1
 sudo chmod -R 777 workers/worker-2
 ```
 
-
 ```
 sudo docker run -it --entrypoint=bash -v ./workers/worker-1:/data alloranetwork/allora-inference-base:latest -c "mkdir -p /data/keys && (cd /data/keys && allora-keys)"
 sudo docker run -it --entrypoint=bash -v ./workers/worker-2:/data alloranetwork/allora-inference-base:latest -c "mkdir -p /data/keys && (cd /data/keys && allora-keys)"
 ```
 
-
-### Create Head-ID Keys:
+#### Create Head-ID Keys:
 
 ```
 sudo docker run -it --entrypoint=bash -v ./head-data:/data alloranetwork/allora-inference-base:latest -c "mkdir -p /data/keys && (cd /data/keys && allora-keys)"
 ```
 
-
 ```
 rm -rf docker-compose.yml && nano docker-compose.yml
 ```
 
-* Copy & Paste the following code in it
-*** Replace `head-id` & `WALLET_SEED_PHRASE` in worker-1 and worker-2 containers**
+* Copy & Paste the following code in it \*\*\* Replace `head-id` & `WALLET_SEED_PHRASE` in worker-1 and worker-2 containers\*\*
 
 ```
 version: '3'
@@ -235,16 +230,20 @@ volumes:
   workers:
   head-data:
 ```
+
 To save: CTRL+X+Y Enter
 
-## Run worker
+### Run worker
+
 ```console
 docker compose build
 docker compose up -d
 ```
 
-## Check your node status
-### Check running docker containers
+### Check your node status
+
+#### Check running docker containers
+
 ```console
 # Ensure you are in the right directory
 cd $HOME && cd basic-coin-prediction-node
@@ -255,14 +254,15 @@ docker compose logs -f worker-1
 # Check worker 2 logs
 docker compose logs -f worker-2
 ```
-> You must have `Success: register node Tx Hash` in workers 1 & 2 logs
-> Success: register node Tx Hash:=82BF67E2E1247B226B8C5CFCF3E4F41076909ADABF3852C468D087D94BD9FC3B
 
-![Screenshot_80](https://github.com/0xmoei/allora-testnet/assets/90371338/cefe126e-4ecb-4af3-9444-4e5e014fed52)
+> You must have `Success: register node Tx Hash` in workers 1 & 2 logs Success: register node Tx Hash:=82BF67E2E1247B226B8C5CFCF3E4F41076909ADABF3852C468D087D94BD9FC3B
 
+![Screenshot\_80](https://github.com/0xmoei/allora-testnet/assets/90371338/cefe126e-4ecb-4af3-9444-4e5e014fed52)
 
-### Check Worker node:
+#### Check Worker node:
+
 Check topic 1:
+
 ```console
 network_height=$(curl -s -X 'GET' 'https://allora-rpc.testnet-1.testnet.allora.network/abci_info?' -H 'accept: application/json' | jq -r .result.response.last_block_height) && \
 curl --location 'http://localhost:6000/api/v1/functions/execute' --header 'Content-Type: application/json' --data '{
@@ -292,6 +292,7 @@ curl --location 'http://localhost:6000/api/v1/functions/execute' --header 'Conte
 ```
 
 Check topic 2:
+
 ```console
 network_height=$(curl -s -X 'GET' 'https://allora-rpc.testnet-1.testnet.allora.network/abci_info?' -H 'accept: application/json' | jq -r .result.response.last_block_height) && \
 curl --location 'http://localhost:6000/api/v1/functions/execute' --header 'Content-Type: application/json' --data '{
@@ -319,7 +320,9 @@ curl --location 'http://localhost:6000/api/v1/functions/execute' --header 'Conte
     }
 }' | jq
 ```
+
 Response: you will get code: `200` if everything is fine
+
 ```
 {
   "code": "200",
@@ -471,31 +474,38 @@ Response: you will get code: `200` if everything is fine
 }
 ```
 
-### Check Updater node:
+#### Check Updater node:
+
 ```console
 curl http://localhost:8000/update
 ```
+
 Response:
+
 ```
 0
 ```
 
-### Check Inference node:
+#### Check Inference node:
+
 ```console
 curl http://localhost:8000/inference/ETH
 ```
+
 Response:
+
 ```
 {"value":"2564.021586281073"}
 ```
 
-### Check Docker containers
+#### Check Docker containers
+
 ```console
 docker ps
 ```
 
+#### 🚨Error 408: when checking topic status
 
-### 🚨Error 408: when checking topic status
 ```console
 # Ensure you are in the right directory
 cd $HOME && cd basic-coin-prediction-node
