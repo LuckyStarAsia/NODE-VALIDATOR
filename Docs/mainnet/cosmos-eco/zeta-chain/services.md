@@ -29,9 +29,9 @@
 
 ### gRPC
 
-[https://zeta-testnet-grpc.luckystar.asia](https://zeta-testnet-grpc.luckystar.asia)
+[https://zeta-mainnet-grpc.luckystar.asia](https://zeta-mainnet-grpc.luckystar.asia)
 
 ### EVM RPC & WSS:
 
-[https://zeta-testnet-evmrpc.luckystar.asia](https://zeta-testnet-evmrpc.luckystar.asia)\
-[wss://](wss://xrpl-testnet-evmrpc.luckystar.asia/ws)[zeta](https://xrpl-testnet-evmrpc.luckystar.asia)[-testnet-evmrpc.luckystar.asia/ws](wss://zeta-testnet-evmrpc.luckystar.asia/ws)
+[https://zeta-mainnet-evmrpc.luckystar.asia](https://zeta-mainnet-evmrpc.luckystar.asia)\
+[wss://zeta-mainnet-evmrpc.luckystar.asia/ws](wss://zeta-mainnet-evmrpc.luckystar.asia/ws)

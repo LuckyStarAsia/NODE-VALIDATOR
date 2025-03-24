@@ -1,12 +1,18 @@
+---
+cover: ../../../Docs/.gitbook/assets/AltheaCover.JPG
+coverY: 0
+---
 
-![image](https://github.com/user-attachments/assets/9763ee83-ea45-42b7-a3ed-e2edbc16f921)
+# Command
 
+![ALTHEA Network](https://github.com/user-attachments/assets/9763ee83-ea45-42b7-a3ed-e2edbc16f921)
 
-# Althea CLI Cheatsheet
+## Althea CLI Cheatsheet
 
-## Bank: 
+### Bank:
 
-### Send
+#### Send
+
 ```
 althea tx bank send <KEY RECEIVER_ADDRESS> 1000000aalthea \
   --chain-id althea_258432-1 \
@@ -14,9 +20,10 @@ althea tx bank send <KEY RECEIVER_ADDRESS> 1000000aalthea \
   --from wallet
 ```
 
-## Distribution: 
+### Distribution:
 
-### Withdraw Rewards including Commission
+#### Withdraw Rewards including Commission
+
 ```
 althea tx distribution withdraw-rewards VALIDATOR_OPERATOR \
   --commission \
@@ -25,8 +32,10 @@ althea tx distribution withdraw-rewards VALIDATOR_OPERATOR \
   --from wallet
 ```
 
-## Gov: 
-### Query Proposal
+### Gov:
+
+#### Query Proposal
+
 ```
 althea query gov proposal PROPOSAL_NUMBER \
   --chain-id althea_258432-1 \
@@ -34,8 +43,10 @@ althea query gov proposal PROPOSAL_NUMBER \
   --output json | jq
 ```
 
-### Vote
-VOTE_OTION: `yes, no, no_with_veto and abstain.`
+#### Vote
+
+VOTE\_OTION: `yes, no, no_with_veto and abstain.`
+
 ```
 althea tx gov vote PROPOSAL_NUMBER VOTE_OPTION \
   --chain-id althea_258432-1 \
@@ -43,9 +54,10 @@ althea tx gov vote PROPOSAL_NUMBER VOTE_OPTION \
   --from wallet
 ```
 
-## Slashing: 
+### Slashing:
 
-### Unjail
+#### Unjail
+
 ```
 althea tx slashing unjail \
   --chain-id althea_258432-1 \
@@ -53,10 +65,12 @@ althea tx slashing unjail \
   --from wallet
 ```
 
-## Staking: 
+### Staking:
 
-### Create Validator
+#### Create Validator
+
 Note: replace your validator info
+
 ```
 althea tx staking create-validator \
   --amount 1000000000000000000aalthea \
@@ -74,5 +88,3 @@ althea tx staking create-validator \
   --node https://althea-mainnet-rpc.luckystar.asia:443 --fees 30000000000000000aalthea --gas 300000 \
   --from wallet
 ```
-
-
