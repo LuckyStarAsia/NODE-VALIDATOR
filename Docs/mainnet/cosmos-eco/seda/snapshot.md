@@ -17,8 +17,8 @@ rm -rf $HOME/.sedad/wasm/*
 ## Download `latest` snapshot
 
 ```
-curl -L https://seda-mainnet-services.luckystar.asia/seda/seda-1_latest.tar.gz | tar -xzf - -C $HOME/.sedad/data
-curl -L https://seda-mainnet-services.luckystar.asia/seda/wasm_seda-1_latest.tar.gz | tar -xzf - -C $HOME/.sedad/wasm
+curl -L https://seda-mainnet-services.luckystar.asia/seda/seda-1_latest.tar.lz4 | lz4 -d - | tar -xf - -C $HOME/.sedad/data
+curl -L https://seda-mainnet-services.luckystar.asia/seda/wasm_seda-1_latest.tar.lz4 | lz4 -d - | tar -xf - -C $HOME/.sedad/wasm
 ```
 
 ```
