@@ -16,7 +16,7 @@ rm -rf $HOME/.exrpd/data/*
 ## Download `latest` snapshot
 
 ```
-curl -L https://xrpl-testnet-services.luckystar.asia/xrpl/xrplevm_1449000-1_latest.tar.gz | tar -xzf - -C $HOME/.exrpd/data
+curl -L https://xrpl-testnet-services.luckystar.asia/xrpl/_latest.tar.gz | tar -xzf - -C $HOME/.exrpd/data
 ```
 
 ```
