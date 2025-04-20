@@ -23,7 +23,7 @@ rm -rf $HOME/.arkeo/data/*
 ## Download `latest` snapshot
 
 ```
-curl -L https://arkeo-mainnet-services.luckystar.asia/arkeo/_latest.tar.lz4 | lz4 -d - | tar -xf - -C $HOME/.arkeo/data
+curl -L https://arkeo-mainnet-services.luckystar.asia/arkeo/arkeo-main-v1_latest.tar.lz4 | lz4 -d - | tar -xf - -C $HOME/.arkeo/data
 ```
 
 ```
