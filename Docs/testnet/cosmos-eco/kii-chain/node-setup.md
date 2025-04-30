@@ -15,7 +15,7 @@ sudo apt install make curl git wget htop tmux build-essential jq make lz4 gcc un
 
 ```
 cd $HOME
-VER="1.22.8"
+VER="1.23.8"
 wget "https://golang.org/dl/go$VER.linux-amd64.tar.gz"
 sudo rm -rf /usr/local/go
 sudo tar -C /usr/local -xzf "go$VER.linux-amd64.tar.gz"
@@ -35,7 +35,7 @@ cd $HOME
 rm -rf kiichain
 git clone https://github.com/KiiChain/kiichain.git
 cd kiichain
-git checkout v2.0.0
+git checkout v1.2.0
 ```
 
 #### Build binaries
@@ -47,18 +47,21 @@ make install
 Check version:
 
 ```
-$HOME/go/bin/kiichaind version --long
+$HOME/go/bin/kiichaind version --long | tail
 ```
 
 result:
 
 ```
+- pgregory.net/rapid@v1.1.0
+- sigs.k8s.io/yaml@v1.4.0
+build_tags: netgo,ledger
+commit: a8a84dded43d147baa4da03629a053d0f0f49cee
+cosmos_sdk_version: v0.50.13-0.20250319183239-53dea340efc7
+go: go version go1.23.8 linux/amd64
 name: kiichain
-server_name: <appd>
-version: v2.0.0
-commit: 5a0bc4e5c165d314987b7ac8c87ac06eafc8cdf9
-build_tags: netgo ledger,
-go: go version go1.22.10 linux/amd64
+server_name: kiichaind
+version: v1.2.0
 ```
 
 ### Install Cosmovisor and create a service
@@ -79,17 +82,17 @@ go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.6.0
 #### Init & prepare for Upgrade Cosmovisor folder
 
 ```
-DAEMON_HOME="$HOME/.kiichain3/" DAEMON_NAME="kiichaind" cosmovisor init $HOME/go/bin/kiichaind
+DAEMON_HOME="$HOME/.kiichain/" DAEMON_NAME="kiichaind" cosmovisor init $HOME/go/bin/kiichaind
 ```
 
 ```
-mkdir -p $HOME/.kiichain3/cosmovisor/upgrades
+mkdir -p $HOME/.kiichain/cosmovisor/upgrades
 cp $HOME/go/bin/kiichaind $HOME/.sedad/cosmovisor/genesis/bin/
 ```
 
 ```
 echo "export DAEMON_NAME="kiichaind"" >> $HOME/.bash_profile
-echo "export DAEMON_HOME="$HOME/.kiichain3/"" >> $HOME/.bash_profile
+echo "export DAEMON_HOME="$HOME/.kiichain/"" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
 
@@ -102,7 +105,7 @@ with port=`19`xxx
 ```
 echo "export WALLET="kii01"" >> $HOME/.bash_profile
 echo "export MONIKER="LuckyStar"" >> $HOME/.bash_profile
-echo "export KII_CHAIN_ID="kiichain3"" >> $HOME/.bash_profile
+echo "export KII_CHAIN_ID="kiichain"" >> $HOME/.bash_profile
 echo "export KII_PORT="19"" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
@@ -112,16 +115,16 @@ source $HOME/.bash_profile
 #### _Set node configuration_
 
 ```
-kiichaind config chain-id $KII_CHAIN_ID
-kiichaind config keyring-backend test
-kiichaind config node tcp://localhost:${KII_PORT}657
-kiichaind config broadcast-mode block
+kiichaind config set client chain-id $KII_CHAIN_ID && \
+kiichaind config set client keyring-backend test && \
+kiichaind config set client node tcp://localhost:${KII_PORT}657
+
 ```
 
 #### _Initialize the node_
 
 ```
-kiichaind init "$MONIKER" --chain-id $KII_CHAIN_ID --home=$HOME/.kiichain3
+kiichaind init "$MONIKER" --chain-id $KII_CHAIN_ID --home $HOME/.kiichain
 ```
 
 ### Custom Port:
@@ -134,7 +137,7 @@ s%:8080%:${KII_PORT}080%g;
 s%:9090%:${KII_PORT}090%g;
 s%:9091%:${KII_PORT}091%g;
 s%:8545%:${KII_PORT}545%g;
-s%:8546%:${KII_PORT}546%g" $HOME/.kiichain3/config/app.toml
+s%:8546%:${KII_PORT}546%g" $HOME/.kiichain/config/app.toml
 ```
 
 #### set custom ports in `config.toml` file
@@ -145,61 +148,46 @@ s%:26657%:${KII_PORT}657%g;
 s%:6060%:${KII_PORT}060%g;
 s%:26656%:${KII_PORT}656%g;
 s%^external_address = \"\"%external_address = \"$(wget -qO- eth0.me):${KII_PORT}656\"%;
-s%:26660%:${KII_PORT}660%g" $HOME/.kiichain3/config/config.toml
+s%:26660%:${KII_PORT}660%g" $HOME/.kiichain/config/config.toml
 ```
 
 #### Download genesis
 
 ```
-wget -O $HOME/.kiichain3/config/genesis.json https://raw.githubusercontent.com/KiiChain/testnets/refs/heads/main/testnet_oro/genesis.json
-```
-
-#### Enable DB
-
-```
-sed -i.bak -e "s|^occ-enabled *=.*|occ-enabled = true|" $HOME/.kiichain3/config/app.toml
-sed -i.bak -e "s|^sc-enable *=.*|sc-enable = true|" $HOME/.kiichain3/config/app.toml
-sed -i.bak -e "s|^ss-enable *=.*|ss-enable = true|" $HOME/.kiichain3/config/app.toml
-sed -i.bak -e 's/^# concurrency-workers = 20$/concurrency-workers = 500/' $HOME/.kiichain3/config/app.toml
-```
-
-#### Set the node as validator
-
-```
-sed -i 's/mode = "full"/mode = "validator"/g' $HOME/.kiichain3/config/config.toml
+wget -O $HOME/.kiichain/config/genesis.json https://raw.githubusercontent.com/KiiChain/testnets/refs/heads/main/testnet_oro/genesis.json
 ```
 
 #### Add Peers
 
 ```
-PERSISTENT_PEERS="5b6aa55124c0fd28e47d7da091a69973964a9fe1@uno.sentry.testnet.v3.kiivalidator.com:26656,5e6b283c8879e8d1b0866bda20949f9886aff967@dos.sentry.testnet.v3.kiivalidator.com:26656,41738a0c881866cd0810dbf5918dfd9f4736d39d@167.235.101.159:26656,837fc0b53b4d045b8aaf9e89566af63f3a46b60d@149.50.96.91:37656,83cf42529a500abe37fc6e6b65573cf038ea287d@172.31.1.237:26656,0fe12600961ab22df47e433418403ea5d492dcd7@172.31.10.28:26656"
-sed -i -e "/persistent-peers =/ s^= .*^= \"$PERSISTENT_PEERS\"^" $HOME/.kiichain3/config/config.toml
+PERSISTENT_PEERS="5b6aa55124c0fd28e47d7da091a69973964a9fe1@uno.sentry.testnet.v3.kiivalidator.com:26656,5e6b283c8879e8d1b0866bda20949f9886aff967@dos.sentry.testnet.v3.kiivalidator.com:26656" &&\
+sed -i -e "/^persistent_peers =/ s^= .*^= \"$PERSISTENT_PEERS\"^" $NODE_HOME/config/config.toml
 ```
 
 #### Set minimum gas price
 
 ```
-sed -i 's|minimum-gas-prices =.*|minimum-gas-prices = "0.02ukii"|g' $HOME/.kiichain3/config/app.toml
+sed -i 's|minimum-gas-prices =.*|minimum-gas-prices = "1000000000akii"|g' $HOME/.kiichain/config/app.toml
 ```
 
 #### Set pruning
 
 ```
-sed -i -e "s/^pruning *=.*/pruning = \"custom\"/" $HOME/.kiichain3/config/app.toml 
-sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"100\"/" $HOME/.kiichain3/config/app.toml
-sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"30\"/" $HOME/.kiichain3/config/app.toml
+sed -i -e "s/^pruning *=.*/pruning = \"custom\"/" $HOME/.kiichain/config/app.toml 
+sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"100\"/" $HOME/.kiichain/config/app.toml
+sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"30\"/" $HOME/.kiichain/config/app.toml
 ```
 
 #### Disable indexer
 
 ```
-sed -i -e "s/^indexer *=.*/indexer = \"null\"/" $HOME/.kiichain3/config/config.toml
+sed -i -e "s/^indexer *=.*/indexer = \"null\"/" $HOME/.kiichain/config/config.toml
 ```
 
 #### Enable Prometheus
 
 ```
-sed -i -e "s/prometheus = false/prometheus = true/" $HOME/.kiichain3/config/config.toml
+sed -i -e "s/prometheus = false/prometheus = true/" $HOME/.kiichain/config/config.toml
 ```
 
 #### Create service
@@ -212,12 +200,12 @@ After=network-online.target
 
 [Service]
 User=$USER
-WorkingDirectory=$HOME/.kiichain3
-ExecStart=$(which cosmovisor) run start --x-crisis-skip-assert-invariants --rpc.laddr tcp://127.0.0.1:${KII_PORT}657 --home $HOME/.kiichain3
+WorkingDirectory=$HOME/.kiichain
+ExecStart=$(which cosmovisor) run start --x-crisis-skip-assert-invariants --rpc.laddr tcp://127.0.0.1:${KII_PORT}657 --home $HOME/.kiichain
 Restart=on-failure
 RestartSec=5
 LimitNOFILE=65535
-Environment="DAEMON_HOME=$HOME/.kiichain3"
+Environment="DAEMON_HOME=$HOME/.kiichain"
 Environment="DAEMON_NAME=kiichaind"
 Environment="UNSAFE_SKIP_BACKUP=true"
 Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=true"
@@ -233,7 +221,7 @@ EOF
 
 ```
 TRUST_HEIGHT_DELTA=500
-LATEST_HEIGHT=$(curl -s https://rpc.uno.sentry.testnet.v3.kiivalidator.com/block | jq -r ".block.header.height")
+LATEST_HEIGHT=$(curl -s "$PRIMARY_ENDPOINT"/block | jq -r ".result.block.header.height")
 if [[ "$LATEST_HEIGHT" -gt "$TRUST_HEIGHT_DELTA" ]]; then
 SYNC_BLOCK_HEIGHT=$(($LATEST_HEIGHT - $TRUST_HEIGHT_DELTA))
 else
@@ -244,7 +232,7 @@ fi
 #### Get the sync block hash
 
 ```
-SYNC_BLOCK_HASH=$(curl -s "https://rpc.uno.sentry.testnet.v3.kiivalidator.com/block?height=$SYNC_BLOCK_HEIGHT" | jq -r ".block_id.hash")
+SYNC_BLOCK_HASH=$(curl -s "$PRIMARY_ENDPOINT/block?height=$SYNC_BLOCK_HEIGHT" | jq -r ".result.block_id.hash")
 ```
 
 #### Enable State Sync in Configuration
@@ -252,11 +240,10 @@ SYNC_BLOCK_HASH=$(curl -s "https://rpc.uno.sentry.testnet.v3.kiivalidator.com/bl
 Modify the `config.toml` file to enable state sync and set the required parameters.
 
 ```
-sed -i.bak -e "s|^enable *=.*|enable = true|" $HOME/.kiichain3/config/config.toml
-sed -i.bak -e "s|^rpc-servers *=.*|rpc-servers = \"https://rpc.uno.sentry.testnet.v3.kiivalidator.com,https://rpc.dos.sentry.testnet.v3.kiivalidator.com\"|" $HOME/.kiichain3/config/config.toml
-sed -i.bak -e "s|^db-sync-enable *=.*|db-sync-enable = false|" $HOME/.kiichain3/config/config.toml
-sed -i.bak -e "s|^trust-height *=.*|trust-height = $SYNC_BLOCK_HEIGHT|" $HOME/.kiichain3/config/config.toml
-sed -i.bak -e "s|^trust-hash *=.*|trust-hash = \"$SYNC_BLOCK_HASH\"|" $HOME/.kiichain3/config/config.toml
+sed -i.bak -e "s|^enable *=.*|enable = true|" $NODE_HOME/config/config.toml
+sed -i.bak -e "s|^rpc_servers *=.*|rpc_servers = \"$PRIMARY_ENDPOINT,$SECONDARY_ENDPOINT\"|" $NODE_HOME/config/config.toml
+sed -i.bak -e "s|^trust_height *=.*|trust_height = $SYNC_BLOCK_HEIGHT|" $NODE_HOME/config/config.toml
+sed -i.bak -e "s|^trust_hash *=.*|trust_hash = \"$SYNC_BLOCK_HASH\"|" $NODE_HOME/config/config.toml
 ```
 
 #### Enable and start service
@@ -276,6 +263,6 @@ sudo systemctl disable kiidtest
 sudo rm /etc/systemd/system/kiidtest.service
 sudo systemctl daemon-reload
 sudo rm -f $(which kiichaind)
-rm -rf $HOME/.kiichain3
+rm -rf $HOME/.kiichain
 rm -rf $HOME/kiichain
 ```
