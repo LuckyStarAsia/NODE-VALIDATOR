@@ -1,8 +1,6 @@
 # Table of contents
 
 * [WELCOME TO LUCKY STAR](README.md)
-  * [COSMOS\_eco](../logo/cosmos_eco/README.md)
-    * [ARKEO](../LOGO/COSMOS_eco/ARKEO/readme.md)
 * [🟢 MAINNET](../mainnet/README.md)
   * [COSMOS-eco](../mainnet/cosmos-eco/README.md)
     * [ALTHEA](../mainnet/cosmos-eco/althea/README.md)

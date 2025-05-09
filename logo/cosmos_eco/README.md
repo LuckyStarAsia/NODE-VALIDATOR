@@ -1,2 +1,0 @@
-# COSMOS\_eco
-
