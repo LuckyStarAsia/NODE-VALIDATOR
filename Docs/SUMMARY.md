@@ -98,6 +98,7 @@
       * [install](../testnet/cosmos-eco/kopi/install.md)
       * [Validator](../testnet/cosmos-eco/kopi/validator.md)
       * [Command](../testnet/cosmos-eco/kopi/command.md)
+      * [Snapshot](testnet/cosmos-eco/kopi/snapshot.md)
     * [0G Labs](../testnet/cosmos-eco/0g-labs/README.md)
       * [Command OG](../testnet/cosmos-eco/0g-labs/command.md)
       * [OG](../testnet/cosmos-eco/0g-labs/cosmovisor.md)
