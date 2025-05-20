@@ -17,8 +17,8 @@ rm -rf $HOME/.kopid/wasm/*
 ## Download `latest` snapshot
 
 ```
-curl -L https://kopi-services.luckystar.asia/kopi/luwak-1_latest.tar.gz | tar -xzf - -C $HOME/.kopid/data
-curl -L https://kopi-services.luckystar.asia/kopi/wasm_luwak-1_latest.tar.gz | tar -xzf - -C $HOME/.kopid/wasm
+curl -L https://kopi-services.luckystar.asia/kopi/luwak-1_latest.tar.lz4 | lz4 -d - | tar -xf - -C $HOME/.kopid/data
+curl -L https://kopi-services.luckystar.asia/kopi/wasm_luwak-1_latest.tar.lz4 | lz4 -d - | tar -xf - -C $HOME/.kopid/wasm
 ```
 
 ```
