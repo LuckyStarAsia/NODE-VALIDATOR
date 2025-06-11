@@ -74,6 +74,7 @@
     * [EMPEIRIA](../testnet/cosmos-eco/empeiria/README.md)
       * [Install](../TESTNET/COSMOS-eco/EMPEIRIA/Cosmovisor.md)
       * [Command](../TESTNET/COSMOS-eco/EMPEIRIA/Command.md)
+      * [Snapshot](testnet/cosmos-eco/empeiria/snapshot.md)
     * [Fairblock Network](../testnet/cosmos-eco/fairblock-network/README.md)
       * [Command](../testnet/cosmos-eco/fairblock-network/command.md)
       * [Fairyport](../testnet/cosmos-eco/fairblock-network/fairyport.md)
