@@ -69,7 +69,7 @@ version: 12.0.0
 ```
 MONIKER=Your-Moniker
 echo "export MONIKER=$MONIKER" >> $HOME/.bash_profile
-echo "export AXONE_CHAIN_ID="atomone-1"" >> $HOME/.bash_profile
+echo "export AXONE_CHAIN_ID="axone-1"" >> $HOME/.bash_profile
 echo "export AXONE_PORT="11"" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
