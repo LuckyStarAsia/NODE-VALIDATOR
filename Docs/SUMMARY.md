@@ -18,6 +18,7 @@
       * [Command](../Mainnet/COSMOS-eco/ATOMONE/Command.md)
       * [Snap shot](../Mainnet/COSMOS-eco/ATOMONE/Snapshot.md)
     * [AXONE](mainnet/cosmos-eco/axone/README.md)
+      * [Services](mainnet/cosmos-eco/axone/services.md)
       * [install](mainnet/cosmos-eco/axone/install.md)
       * [Command](mainnet/cosmos-eco/axone/command.md)
       * [Snap shot](mainnet/cosmos-eco/axone/snapshot.md)
