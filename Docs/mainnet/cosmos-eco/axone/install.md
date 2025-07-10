@@ -77,10 +77,10 @@ source $HOME/.bash_profile
 #### Config and Init App:
 
 ```
-axoned config node tcp://localhost:${ATONE_PORT}657
+axoned config node tcp://localhost:${AXONE_PORT}657
 axoned config keyring-backend os
-axoned config chain-id $ATONE_CHAIN_ID
-axoned init $MONIKER --chain-id $ATONE_CHAIN_ID
+axoned config chain-id $AXONE_CHAIN_ID
+axoned init $MONIKER --chain-id $AXONE_CHAIN_ID
 ```
 
 #### Configure Seeds and Peers:
@@ -184,7 +184,7 @@ axoned status 2>&1 | jq .ValidatorInfo
 #### Create Validator
 
 ```
-axoned tx staking create-validator --amount 1000000uatone --pubkey $(axoned comet show-validator) --moniker "Your-moniker" --identity "your-keybase-identity" --details "your-detail" --website "your-website" --chain-id atomone-1 --commission-rate 0.05 --commission-max-rate 0.20 --commission-max-change-rate 0.01 --min-self-delegation 1 --from atone01 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uatone -y
+axoned tx staking create-validator --amount 1000000uatone --pubkey $(axoned comet show-validator) --moniker "Your-moniker" --identity "your-keybase-identity" --details "your-detail" --website "your-website" --chain-id atomone-1 --commission-rate 0.05 --commission-max-rate 0.20 --commission-max-change-rate 0.01 --min-self-delegation 1 --from $WALLET --gas-adjustment 1.4 --gas auto --gas-prices 0.025uaxone -y
 ```
 
 ### Key management
@@ -224,7 +224,7 @@ axoned comet show-validator
 #### Create Validator
 
 ```
-axoned tx staking create-validator --amount 1000000uaxone --pubkey $(axoned comet show-validator) --moniker "Your-moniker" --identity "your-keybase-identity" --details "your-detail" --website "your-website" --chain-id atomone-1 --commission-rate 0.05 --commission-max-rate 0.20 --commission-max-change-rate 0.01 --min-self-delegation 1 --from $WALLET --gas-adjustment 1.4 --gas auto --gas-prices 0.025uaxone -y
+axoned tx staking create-validator --amount 1000000uaxone --pubkey $(axoned comet show-validator) --moniker "Your-moniker" --identity "your-keybase-identity" --details "your-detail" --website "your-website" --chain-id axone-1 --commission-rate 0.05 --commission-max-rate 0.20 --commission-max-change-rate 0.01 --min-self-delegation 1 --from $WALLET --gas-adjustment 1.4 --gas auto --gas-prices 0.025uaxone -y
 ```
 
 ### Remove node
