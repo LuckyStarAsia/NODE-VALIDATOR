@@ -13,7 +13,7 @@ coverY: 0
 
 ### EXPLORER:&#x20;
 
-[https://explorer.luckystar.asia/althea-mainnet](https://explorer.luckystar.asia/althea-mainnet)
+[https://explorer.luckystar.asia/TAC-Mainnet](https://explorer.luckystar.asia/TAC-Mainnet)
 
 ### [SNAPSHOT link](snapshot.md)
 
