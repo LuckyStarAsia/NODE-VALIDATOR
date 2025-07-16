@@ -107,7 +107,7 @@ cp $HOME/go/bin/tacchaind $HOME/.tacchaind/cosmovisor/genesis/bin
 
 ### Create Service File
 
-Create a `althead.service` file in the `/etc/systemd/system` folder with the following code snippet. Make sure to replace USER with your Linux user name. You need sudo privilege to do this step.
+Create a `tacchaind.service` file in the `/etc/systemd/system` folder with the following code snippet. Make sure to replace USER with your Linux user name. You need sudo privilege to do this step.
 
 ```
 sudo nano /etc/systemd/system/tacchaind.service
@@ -136,7 +136,7 @@ WantedBy=multi-user.target
 
 ### Download Snapshot
 
-Please use our popular snapshot download service to download and extract Althea snapshot.
+Please use our popular snapshot download service to download and extract [snapshot](snapshot.md).
 
 ### Start Node Service
 
