@@ -9,7 +9,7 @@ coverY: 0
 
 <figure><img src="../../../.gitbook/assets/tac.jpg" alt="" width="200"><figcaption><p>TAC chain</p></figcaption></figure>
 
-## LUCKYSTAR - ALTHEA services:
+## LUCKYSTAR - TAC chain services:
 
 ### EXPLORER:&#x20;
 
