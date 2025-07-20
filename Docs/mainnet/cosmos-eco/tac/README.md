@@ -1,11 +1,9 @@
 ---
-description: >-
-  Althea L1 is the settlement layer bringing open-access infrastructure to
-  people everywhere. https://www.althea.net/
-cover: ../../../.gitbook/assets/AltheaCover.JPG
+description: TAC chain is DeFi on Telegram https://tac.build/
+cover: ../../../.gitbook/assets/681860db654f71faabe0ffc4_tac roadmap.png
 coverY: 0
 ---
 
-# TACchain
+# TAC chain
 
-<figure><img src="../../../.gitbook/assets/althea.png" alt="" width="375"><figcaption><p>ALTHEA Network</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/tac.jpg" alt="" width="200"><figcaption><p>TAC Chain</p></figcaption></figure>

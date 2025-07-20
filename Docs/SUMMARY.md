@@ -32,7 +32,7 @@
       * [Install](mainnet/cosmos-eco/lumera/install.md)
       * [Command](mainnet/cosmos-eco/lumera/command.md)
       * [Snapshot](mainnet/cosmos-eco/lumera/snapshot.md)
-    * [TACchain](mainnet/cosmos-eco/tac/README.md)
+    * [TAC chain](mainnet/cosmos-eco/tac/README.md)
       * [Services](mainnet/cosmos-eco/tac/services.md)
       * [Install](mainnet/cosmos-eco/tac/install.md)
       * [Command](mainnet/cosmos-eco/tac/command.md)
