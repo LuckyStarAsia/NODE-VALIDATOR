@@ -1,3 +1,8 @@
+---
+cover: ../../../../.gitbook/assets/logo-dark.svg
+coverY: 0
+---
+
 # Create-Validator
 
 ## Create validator
@@ -16,25 +21,23 @@ In addition, if you want to export the derived `EVM private key` of your validat
 story validator export --export-evm-key
 ```
 
-![image](https://github.com/user-attachments/assets/bef9c618-b1c8-458c-a5f2-255de9054491)
-
 \***Important: Please keep your private key in a safe place**
 
 Your EVM Private Key saved to: `/root/.story/story/config/private_key.txt`
 
-Note that to participate in consensus, at least `1 IP` must be staked (equivalent to `1000000000000000000 wei` )!
+Note that to participate in consensus, at least `1024 IP` must be staked (equivalent to `1024000000000000000000 wei` )!
 
-Faucet link: https://docs.story.foundation/docs/story-network#-faucets
+Faucet link:
 
-https://faucet.quicknode.com/story/odyssey
-
-https://faucet.story.foundation/
+[https://cloud.google.com/application/web3/faucet/story/aeneid](https://cloud.google.com/application/web3/faucet/story/aeneid)
 
 ```
-story validator create --stake 1000000000000000000 --private-key "your_private_key"
+story validator create \
+  --stake 1024000000000000000000 \
+  --moniker "your moniker" \
+  --rpc https://aeneid.storyrpc.io \
+  --chain-id 1315
 ```
-
-![image](https://github.com/user-attachments/assets/8650eef4-370d-4a62-b0f0-cd1b5cd36ae9)
 
 #### Backup the validator key:
 

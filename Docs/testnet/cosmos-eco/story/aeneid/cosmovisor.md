@@ -273,8 +273,8 @@ cp $HOME/.story/story/data/priv_validator_state.json $HOME/.story/story/priv_val
 #### remove old data and unpack Story snapshot
 
 ```
-rm -rf $HOME/.story/story/data
-curl https://server-3.itrocket.net/testnet/story/story_2024-11-21_713429_snap.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.story/story
+rm -rf $HOME/.story/story/data/*
+curl https://story-testnet-services.luckystar.asia/story/aeneid_latest.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.story/story/data
 ```
 
 #### restore priv\_validator\_state.json
@@ -283,12 +283,12 @@ curl https://server-3.itrocket.net/testnet/story/story_2024-11-21_713429_snap.ta
 mv $HOME/.story/story/priv_validator_state.json.backup $HOME/.story/story/data/priv_validator_state.json
 ```
 
-#### delete geth data and unpack Geth snapshot
+#### delete Geth data and unpack Geth snapshot
 
 ```
-rm -rf $HOME/.story/geth/odyssey/geth/chaindata
-mkdir -p $HOME/.story/geth/odyssey/geth
-curl https://server-3.itrocket.net/testnet/story/geth_story_2024-11-21_713429_snap.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.story/geth/odyssey/geth
+rm -rf $HOME/.story/geth/aeneid/geth/chaindata/*
+mkdir -p $HOME/.story/geth/aeneid/geth/chaindata
+curl https://story-testnet-services.luckystar.asia/story/geth_aeneid_latest.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.story/geth/aeneid/geth/chaindata
 ```
 
 #### enable and start geth, story
@@ -302,7 +302,7 @@ sudo systemctl restart story-geth && sleep 5 && sudo systemctl restart story
 #### check logs (in new Tmux)
 
 ```
-journalctl -u story -u story-geth -f
+sudo journalctl -u story -u story-geth -f
 ```
 
 #### Check sync status:
@@ -323,14 +323,14 @@ curl -s localhost:${STORY_PORT}657/status | jq .result.sync_info.catching_up
 
 ### Note
 
-**From now please do not stop and restart node before block 858,000 . Because it will run forcely with new binary.**
+**From now please do not stop and restart node before block 6,008,000 . Because it will run forcely with new binary.**
 
 If you need to restart the node unexpectedly, please setup again:
 
 #### Remove folder
 
 ```
-rm -rf $HOME/.story/story/cosmovisor/upgrades/v0.13.0
+rm -rf $HOME/.story/story/cosmovisor/upgrades/v1.3.0
 ```
 
 #### Remove symlink:
@@ -339,10 +339,10 @@ rm -rf $HOME/.story/story/cosmovisor/upgrades/v0.13.0
 rm $HOME/.story/story/cosmovisor/current
 ```
 
-#### Setup symlink v0.12.1 back:
+#### Setup symlink v1.2.0 back:
 
 ```
-ln -s $HOME/.story/story/cosmovisor/upgrades/v0.12.1 $HOME/.story/story/cosmovisor/current
+ln -s $HOME/.story/story/cosmovisor/upgrades/v1.2.0 $HOME/.story/story/cosmovisor/current
 ```
 
-#### _Finally Start node & setup v0.13.0 with Cosmosvisor again._
+#### _Finally Start node & setup v1.3.0 with Cosmosvisor again._

@@ -1,5 +1,5 @@
 ---
-cover: ../../../../.gitbook/assets/logo-dark.svg
+cover: ../../../../.gitbook/assets/Story background.png
 coverY: 0
 ---
 
