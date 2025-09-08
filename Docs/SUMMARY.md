@@ -52,7 +52,7 @@
       * [Node setup](mainnet/cosmos-eco/seda/node-setup.md)
       * [Command](mainnet/cosmos-eco/seda/command.md)
       * [Snapshot](mainnet/cosmos-eco/seda/snapshot.md)
-    * [BITWAY-Side](mainnet/cosmos-eco/bitway-side/README.md)
+    * [BITWAY (Side)](mainnet/cosmos-eco/bitway-side/README.md)
       * [Services](mainnet/cosmos-eco/bitway-side/services.md)
       * [Node setup](mainnet/cosmos-eco/bitway-side/node-setup.md)
       * [Command](mainnet/cosmos-eco/bitway-side/command.md)

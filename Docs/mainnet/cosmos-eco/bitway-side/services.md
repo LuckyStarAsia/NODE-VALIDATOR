@@ -2,7 +2,7 @@
 
 ![image](<../../../.gitbook/assets/Bitway -blackbackground@2x-1.png>)
 
-## LUCKYSTAR - SEDA services:
+## LUCKYSTAR - BITWAY services:
 
 ### EXPLORER:&#x20;
 
