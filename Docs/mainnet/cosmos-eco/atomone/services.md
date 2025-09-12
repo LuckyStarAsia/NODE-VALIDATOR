@@ -8,7 +8,7 @@
 
 [https://explorer.luckystar.asia/Atomone](https://explorer.luckystar.asia/Atomone)
 
-### [SNAPSHOT link](services.md)
+### [SNAPSHOT link](../../../../Mainnet/COSMOS-eco/ATOMONE/Snapshot.md)
 
 ### API
 

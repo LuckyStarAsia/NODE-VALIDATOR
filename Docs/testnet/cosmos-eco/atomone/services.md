@@ -8,7 +8,7 @@
 
 [https://explorer.luckystar.asia/Atomone-Testnet](https://explorer.luckystar.asia/Atomone-Testnet)
 
-### [SNAPSHOT link](services.md)
+### [SNAPSHOT link](snapshot.md)
 
 ### API
 
