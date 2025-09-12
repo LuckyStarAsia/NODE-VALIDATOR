@@ -1,350 +1,341 @@
-# Command
 
-## CLI Cheatsheet
+# CLI Cheatsheet
 
-### Key management
-
-#### Add new key
-
+## Key management
+### Add new key
 ```
-gaiad keys add $WALLET
+kopid keys add $WALLET
 ```
 
-#### Recover existing key
+### Recover existing key
 
 ```
-gaiad keys add $WALLET --recover
+kopid keys add $WALLET --recover
 ```
 
-#### List all keys
+### List all keys
 
 ```
-gaiad keys list
+kopid keys list
 ```
 
-#### Delete key
+### Delete key
 
 ```
-gaiad keys delete $WALLET
+kopid keys delete $WALLET
 ```
 
-#### Export key to the file
+### Export key to the file
 
 ```
-gaiad keys export $WALLET
+kopid keys export $WALLET
 ```
 
-#### Import key from the file
+### Import key from the file
 
 ```
-gaiad keys import $WALLET wallet.backup
+kopid keys import $WALLET wallet.backup
 ```
 
-#### Wallet balance
+### Wallet balance
 
 ```
-gaiad q bank balances $(gaiad keys show $WALLET -a)
+kopid q bank balances $(kopid keys show $WALLET -a)
 ```
 
-### Token management
-
-#### Set withdraw address:
-
+## Token management
+### Set withdraw address:
 ```
-gaiad tx distribution set-withdraw-addr <New-withdraw-address> --from $WALLET
+kopid tx distribution set-withdraw-addr <New-withdraw-address> --from $WALLET
 ```
 
-#### Withdraw rewards from all validators
-
+### Withdraw rewards from all validators
 ```
-gaiad tx distribution withdraw-all-rewards --from $WALLET --chain-id $GAIA_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 3000uatom -y
-```
-
-#### Withdraw rewards and commissions from your validator
-
-```
-gaiad tx distribution withdraw-rewards $(gaiad keys show $WALLET --bech val -a) --commission --from $WALLET --chain-id $GAIA_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 3000uatom -y
+kopid tx distribution withdraw-all-rewards --from $WALLET --chain-id $KOPI_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 0ukopi -y
 ```
 
-#### Delegate tokens to yourself
+### Withdraw rewards and commissions from your validator
 
 ```
-gaiad tx staking delegate $(gaiad keys show $WALLET --bech val -a) 1000000uatom --from $WALLET --chain-id $GAIA_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 3000uatom -y
+kopid tx distribution withdraw-rewards $(kopid keys show $WALLET --bech val -a) --commission --from $WALLET --chain-id $KOPI_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 0ukopi -y
 ```
 
-#### Delegate tokens to validator
+### Delegate tokens to yourself
 
 ```
-gaiad tx staking delegate <TO_VALOPER_ADDRESS> 1000000uatom --from $WALLET --chain-id $GAIA_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 3000uatom -y
+kopid tx staking delegate $(kopid keys show $WALLET --bech val -a) 1000000ukopi --from $WALLET --chain-id $KOPI_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 0ukopi -y
 ```
 
-#### Redelegate tokens to another validator
+### Delegate tokens to validator
 
 ```
-gaiad tx staking redelegate $(gaiad keys show $WALLET --bech val -a) <TO_VALOPER_ADDRESS> 1000000uatom --from $WALLET --chain-id $GAIA_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 3000uatom -y
+kopid tx staking delegate <TO_VALOPER_ADDRESS> 1000000ukopi --from $WALLET --chain-id $KOPI_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 0ukopi -y
 ```
 
-#### Unbond tokens from your validator
+### Redelegate tokens to another validator
 
 ```
-gaiad tx staking unbond $(gaiad keys show $WALLET --bech val -a) 1000000uatom --from $WALLET --chain-id $GAIA_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 3000uatom -y
+kopid tx staking redelegate $(kopid keys show $WALLET --bech val -a) <TO_VALOPER_ADDRESS> 1000000ukopi --from $WALLET --chain-id $KOPI_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 0ukopi -y
 ```
 
-#### Send tokens to the wallet
+### Unbond tokens from your validator
 
 ```
-gaiad tx bank send $WALLET <TO_WALLET_ADDRESS> 1000000uatom --from $WALLET --chain-id $GAIA_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 3000uatom -y
+kopid tx staking unbond $(kopid keys show $WALLET --bech val -a) 1000000ukopi --from $WALLET --chain-id $KOPI_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 0ukopi -y
 ```
 
-### Validator management
-
-#### Validator info
+### Send tokens to the wallet
 
 ```
-gaiad status 2>&1 | jq .validator_info
+kopid tx bank send wallet <TO_WALLET_ADDRESS> 1000000ukopi --from $WALLET --chain-id $KOPI_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 0ukopi -y
 ```
 
-#### Validator details
+## Validator management
+### Validator info
 
 ```
-gaiad q staking validator $(gaiad keys show $WALLET --bech val -a)
+kopid status 2>&1 | jq .validator_info
 ```
 
-#### Check if validator key is correct
+### Validator details
 
 ```
-[[ $(gaiad q staking validator $(gaiad keys show $WALLET --bech val -a) -oj | jq -r .consensus_pubkey.key) = $(gaiad status | jq -r .ValidatorInfo.PubKey.value) ]] && echo -e "\n\e[1m\e[32mTrue\e[0m\n" || echo -e "\n\e[1m\e[31mFalse\e[0m\n"
+kopid q staking validator $(kopid keys show $WALLET --bech val -a)
 ```
 
-#### List all active validators
+### Check if validator key is correct
 
 ```
-gaiad q staking validators -oj --limit=1000 | jq '.validators[] | select(.status=="BOND_STATUS_BONDED")' | jq -r '(.tokens|tonumber/pow(10; 6)|floor|tostring) + " \t " + .description.moniker' | sort -gr | nl
+[[ $(kopid q staking validator $(kopid keys show $WALLET --bech val -a) -oj | jq -r .consensus_pubkey.key) = $(kopid status | jq -r .ValidatorInfo.PubKey.value) ]] && echo -e "\n\e[1m\e[32mTrue\e[0m\n" || echo -e "\n\e[1m\e[31mFalse\e[0m\n"
 ```
 
-#### List all inactive validators
+### List all active validators
 
 ```
-gaiad q staking validators -oj --limit=1000 | jq '.validators[] | select(.status=="BOND_STATUS_UNBONDED")' | jq -r '(.tokens|tonumber/pow(10; 6)|floor|tostring) + " \t " + .description.moniker' | sort -gr | nl
+kopid q staking validators -oj --limit=1000 | jq '.validators[] | select(.status=="BOND_STATUS_BONDED")' | jq -r '(.tokens|tonumber/pow(10; 6)|floor|tostring) + " \t " + .description.moniker' | sort -gr | nl
 ```
 
-#### Edit existing validator
+### List all inactive validators
 
 ```
-gaiad tx staking edit-validator \
+kopid q staking validators -oj --limit=1000 | jq '.validators[] | select(.status=="BOND_STATUS_UNBONDED")' | jq -r '(.tokens|tonumber/pow(10; 6)|floor|tostring) + " \t " + .description.moniker' | sort -gr | nl
+```
+
+### Edit existing validator
+
+```
+kopid tx staking edit-validator \
   --new-moniker "YOUR_MONIKER_NAME" \
   --identity "YOUR_KEYBASE_ID" \
   --details "YOUR_DETAILS" \
   --website "YOUR_WEBSITE_URL" \
   --security-contact "YOUR_EMAIL_ADDRESS" \
-  --chain-id $GAIA_CHAIN_ID \
+  --chain-id kopi-test-5 \
   --commission-rate 0.05 \
-  --from $WALLET \
+  --from wallet \
   --gas-adjustment 1.4 \
   --gas auto \
-  --gas-prices 3000uatom \
+  --gas-prices 0ukopi \
   -y
 ```
 
-#### Jail reason
+### Jail reason
 
 ```
-gaiad query slashing signing-info $(gaiad tendermint show-validator)
+kopid query slashing signing-info $(kopid tendermint show-validator)
 ```
 
-#### Unjail validator
-
-<pre><code><strong>gaiad tx slashing unjail --from $WALLET --chain-id $GAIA_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 3000uatom -y
-</strong></code></pre>
-
-### Governance
-
-#### Create a new offer
+### Unjail validator
 
 ```
-gaiad tx gov submit-proposal \
+kopid tx slashing unjail --from $WALLET --chain-id $KOPI_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 0ukopi -y
+```
+
+## Governance
+### Create a new offer
+
+```
+kopid tx gov submit-proposal \
   --title "" \
   --description "" \
-  --deposit 10000000uatom \
+  --deposit 10000000ukopi \
   --type Text
   --from $WALLET \
   --gas-adjustment 1.4 \
   --gas auto \
-  --gas-prices 3000uatom \
+  --gas-prices 0ukopi \
   -y
 ```
 
-#### List all proposals
+### List all proposals
 
 ```
-gaiad query gov proposals
+kopid query gov proposals
 ```
 
-#### View proposal by ID
+### View proposal by ID
 
 ```
-gaiad query gov proposal 1
+kopid query gov proposal 1
 ```
 
-#### Vote “YES”
+### Vote “YES”
 
 ```
-gaiad tx gov vote 1 yes --from $WALLET --chain-id $GAIA_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 3000uatom -y
+kopid tx gov vote 1 yes --from $WALLET --chain-id $KOPI_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 0ukopi -y
 ```
 
-#### Vote “NO”
+### Vote “NO”
 
 ```
-gaiad tx gov vote 1 no --from $WALLET --chain-id $GAIA_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 3000uatom -y
+kopid tx gov vote 1 no --from $WALLET --chain-id $KOPI_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 0ukopi -y
 ```
 
-#### Vote “ABSTAIN”
+### Vote “ABSTAIN”
 
 ```
-gaiad tx gov vote 1 abstain --from $WALLET --chain-id $GAIA_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 3000uatom -y
+kopid tx gov vote 1 abstain --from $WALLET --chain-id $KOPI_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 0ukopi -y
 ```
 
-#### Vote “NOWITHVETO”
+### Vote “NOWITHVETO”
 
 ```
-gaiad tx gov vote 1 NoWithVeto --from $WALLET --chain-id $GAIA_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 3000uatom -y
+kopid tx gov vote 1 NoWithVeto --from $WALLET --chain-id $KOPI_CHAIN_ID --gas-adjustment 1.4 --gas auto --gas-prices 0ukopi -y
 ```
 
-### Maintenance
-
-#### Get sync info
-
-```
-gaiad status 2>&1 | jq .sync_info
-```
-
-#### Get node peer
+## Maintenance
+### Get sync info
 
 ```
-echo $(gaiad tendermint show-node-id)'@'$(wget -qO- eth0.me)':'$(cat $HOME/.gaia/config/config.toml | sed -n '/Address to listen for incoming connection/{n;p;}' | sed 's/.*://; s/".*//')
+kopid status 2>&1 | jq .sync_info
 ```
 
-#### Get live peers
+### Get node peer
 
 ```
-curl -sS http://localhost:19657/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}'
+echo $(kopid tendermint show-node-id)'@'$(wget -qO- eth0.me)':'$(cat $HOME/.kopid/config/config.toml | sed -n '/Address to listen for incoming connection/{n;p;}' | sed 's/.*://; s/".*//')
 ```
 
-#### Enable Prometheus
+### Get live peers
 
 ```
-sed -i -e "s/prometheus = false/prometheus = true/" $HOME/.gaia/config/config.toml
+curl -sS http://localhost:12657/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}'
 ```
 
-#### Set minimum gas price
+### Enable Prometheus
 
 ```
-sed -i -e "s|^minimum-gas-prices *=.*|minimum-gas-prices = \"0.025uatom\"|" $HOME/.gaia/config/app.toml
+sed -i -e "s/prometheus = false/prometheus = true/" $HOME/.kopid/config/config.toml
 ```
 
-#### Disable indexer
+### Set minimum gas price
 
 ```
-sed -i -e 's|^indexer *=.*|indexer = "null"|' $HOME/.gaia/config/config.toml
+sed -i -e "s|^minimum-gas-prices *=.*|minimum-gas-prices = \"0ukopi\"|" $HOME/.kopid/config/app.toml
 ```
 
-#### Enable indexer
+### Disable indexer
 
 ```
-sed -i -e 's|^indexer *=.*|indexer = "kv"|' $HOME/.gaia/config/config.toml
+sed -i -e 's|^indexer *=.*|indexer = "null"|' $HOME/.kopid/config/config.toml
 ```
 
-#### Update pruning
+### Enable indexer
 
 ```
-sed -i -e 's|^pruning *=.*|pruning = "custom"|' $HOME/.gaia/config/app.toml
-sed -i -e 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|' $HOME/.gaia/config/app.toml
-sed -i -e 's|^pruning-keep-every *=.*|pruning-keep-every = "0"|' $HOME/.gaia/config/app.toml
-sed -i -e 's|^pruning-interval *=.*|pruning-interval = "10"|' $HOME/.gaia/config/app.toml
+sed -i -e 's|^indexer *=.*|indexer = "kv"|' $HOME/.kopid/config/config.toml
 ```
 
-#### Filter peers and max peers
+### Update pruning
 
 ```
-sed -i -e 's|^filter_peers *=.*|filter_peers = "true"|' $HOME/.gaia/config/config.toml
-sed -i -e 's|^max_num_inbound_peers *=.*|max_num_inbound_peers = "50"|' $HOME/.gaia/config/config.toml
-sed -i -e 's|^max_num_outbound_peers *=.*|max_num_outbound_peers = "20"|' $HOME/.gaia/config/config.toml
+sed -i -e 's|^pruning *=.*|pruning = "custom"|' $HOME/.kopid/config/app.toml
+sed -i -e 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|' $HOME/.kopid/config/app.toml
+sed -i -e 's|^pruning-keep-every *=.*|pruning-keep-every = "0"|' $HOME/.kopid/config/app.toml
+sed -i -e 's|^pruning-interval *=.*|pruning-interval = "10"|' $HOME/.kopid/config/app.toml
 ```
 
-#### Update ports
+### Filter peers and max peers
+
+```
+sed -i -e 's|^filter_peers *=.*|filter_peers = "true"|' $HOME/.kopid/config/config.toml
+sed -i -e 's|^max_num_inbound_peers *=.*|max_num_inbound_peers = "50"|' $HOME/.kopid/config/config.toml
+sed -i -e 's|^max_num_outbound_peers *=.*|max_num_outbound_peers = "20"|' $HOME/.kopid/config/config.toml
+```
+
+### Update ports
 
 ```
 CUSTOM_PORT=136
-sed -i -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:${CUSTOM_PORT}58\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:${CUSTOM_PORT}57\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${CUSTOM_PORT}60\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:${CUSTOM_PORT}56\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":${CUSTOM_PORT}66\"%" $HOME/.gaia/config/config.toml
-sed -i -e "s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:${CUSTOM_PORT}17\"%; s%^address = \":8080\"%address = \":${CUSTOM_PORT}80\"%; s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:${CUSTOM_PORT}90\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:${CUSTOM_PORT}91\"%" $HOME/.gaia/config/app.toml
+sed -i -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:${CUSTOM_PORT}58\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:${CUSTOM_PORT}57\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${CUSTOM_PORT}60\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:${CUSTOM_PORT}56\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":${CUSTOM_PORT}66\"%" $HOME/.kopid/config/config.toml
+sed -i -e "s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:${CUSTOM_PORT}17\"%; s%^address = \":8080\"%address = \":${CUSTOM_PORT}80\"%; s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:${CUSTOM_PORT}90\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:${CUSTOM_PORT}91\"%" $HOME/.kopid/config/app.toml
 ```
 
-#### Reset chain data
+### Reset chain data
 
 ```
-gaiad tendermint unsafe-reset-all --keep-addr-book --home $HOME/.gaia
+kopid tendermint unsafe-reset-all --keep-addr-book --home $HOME/.kopid
 ```
 
-#### Delete node
+### Delete node
 
 ```
-sudo systemctl stop gaiad
-sudo systemctl disable gaiad
-sudo rm -rf /etc/systemd/system/gaiad.service
+sudo systemctl stop kopid
+sudo systemctl disable kopid
+sudo rm -rf /etc/systemd/system/kopid.service
 sudo systemctl daemon-reload
-sudo rm -f $(which gaiad)
-sudo rm -rf $HOME/.gaia
-sudo rm -rf $HOME/gaia
+sudo rm -f $(which kopid)
+sudo rm -rf $HOME/.kopid
+sudo rm -rf $HOME/kopi
 ```
 
-### Service Management
-
-#### Status service
-
-```
-sudo systemctl status gaiad
-```
-
-#### Start service
+## Service Management
+### Status service
 
 ```
-sudo systemctl start gaiad
+sudo systemctl status kopid
 ```
 
-#### Stop service
+### Start service
 
 ```
-sudo systemctl stop gaiad
+sudo systemctl start kopid
 ```
 
-#### Restart service
+### Stop service
 
 ```
-sudo systemctl restart gaiad
+sudo systemctl stop kopid
 ```
 
-#### Logs service
+### Restart service
 
 ```
-sudo journalctl -u gaiad -f --no-hostname -o cat
+sudo systemctl restart kopid
 ```
 
-#### Reload service
+### Logs service
+
+```
+sudo journalctl -u kopid -f --no-hostname -o cat
+```
+
+### Reload service
 
 ```
 sudo systemctl daemon-reload
 ```
 
-#### Enable service
+### Enable service
 
 ```
-sudo systemctl enable gaiad
+sudo systemctl enable kopid
 ```
 
-#### Disable service
+### Disable service
 
 ```
-sudo systemctl disable gaiad
+sudo systemctl disable kopid
 ```
 
-## END
+# END

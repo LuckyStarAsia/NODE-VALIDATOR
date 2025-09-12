@@ -3,30 +3,30 @@
 ## Stop the service
 
 ```
-sudo systemctl stop kopid.service
+sudo systemctl stop gaiad.service
 ```
 
 ## Reset the data and save validator state
 
 ```
-cp $HOME/.kopid/data/priv_validator_state.json $HOME/.kopid/priv_validator_state.json.backup
-rm -rf $HOME/.kopid/data/*
-rm -rf $HOME/.kopid/wasm/*
+cp $HOME/.gaia/data/priv_validator_state.json $HOME/.gaia/priv_validator_state.json.backup
+rm -rf $HOME/.gaia/data/*
+rm -rf $HOME/.gaia/wasm/*
 ```
 
 ## Download `latest` snapshot
 
 ```
-curl -L https://kopi-services.luckystar.asia/kopi/luwak-1_latest.tar.lz4 | lz4 -d - | tar -xf - -C $HOME/.kopid/data
-curl -L https://kopi-services.luckystar.asia/kopi/wasm_luwak-1_latest.tar.lz4 | lz4 -d - | tar -xf - -C $HOME/.kopid/wasm
+curl -L https://gaia-services.luckystar.asia/gaia/cosmoshub-4_latest.tar.lz4 | lz4 -d - | tar -xf - -C $HOME/.gaia/data
+curl -L https://gaia-services.luckystar.asia/gaia/wasm_cosmoshub-4_latest.tar.lz4 | lz4 -d - | tar -xf - -C $HOME/.gaia/wasm
 ```
 
 ```
-mv $HOME/.kopid/priv_validator_state.json.backup $HOME/.kopid/data/priv_validator_state.json
+mv $HOME/.gaia/priv_validator_state.json.backup $HOME/.gaia/data/priv_validator_state.json
 ```
 
 ## Restart the service and check the log
 
 ```
-sudo systemctl start kopid.service && sudo journalctl -fu kopid.service -o cat
+sudo systemctl start gaiad.service && sudo journalctl -fu gaiad.service -o cat
 ```

@@ -1,26 +1,23 @@
-# Validator
 
-## VALIDATOR:
+# VALIDATOR:
 
-#### Run your own validator
+### Run your own validator
 
 Show PubKey:
-
 ```
-gaiad comet show-validator
+kopid comet show-validator
 ```
 
 OR:
-
 ```
-gaiad tendermint show-validator
+kopid tendermint show-validator
 ```
 
 We assume operators understand how to create keys using the CLI. Below is how to register your validator to the Kopi blockchain. First you need to create a text file contain your validator’s configufation:
 
 ```
-cd $HOME && \
-nano $HOME/.gaia/config/validator.json
+cd $HOME/.kopid/config
+nano validator.json
 ```
 
 ```
@@ -42,13 +39,12 @@ nano $HOME/.gaia/config/validator.json
 }
 ```
 
-#### Then create your validator by passing the created text file:
-
+### Then create your validator by passing the created text file:
 ```
-gaiad tx staking create-validator $HOME/.gaia/config/validator.json \
+kopid tx staking create-validator $HOME/.kopid/config/validator.json \
   --from $WALLET \
-  --chain-id $GAIA_CHAIN_ID \
+  --chain-id $KOPI_CHAIN_ID \
   -y
 ```
 
-## END VALIDATOR
+# END VALIDATOR

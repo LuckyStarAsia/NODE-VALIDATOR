@@ -1,16 +1,15 @@
-# Cosmosvisor
 
-## Cosmos setup
+# KOPI ![image](https://github.com/user-attachments/assets/9f5f12f8-5958-4e5e-9a72-764cdfe1c8ac)
 
-### Update & upgrade tools:
 
+
+## Update & upgrade tools:
 ```
 sudo apt update && sudo apt upgrade -y
 sudo apt install make net-tools curl git wget htop tmux build-essential jq make lz4 gcc unzip -y
 ```
 
-### Install GO:
-
+## Install GO:
 ```
 cd $HOME
 VER="1.23.2"
@@ -25,7 +24,6 @@ source $HOME/.bash_profile
 ```
 
 or just this to use go on other user:
-
 ```
 [ ! -f $HOME/.bash_profile ] && touch $HOME/.bash_profile
 echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_profile
@@ -33,227 +31,213 @@ source $HOME/.bash_profile
 [ ! -d $HOME/go/bin ] && mkdir -p $HOME/go/bin
 ```
 
-### Cloning Cosmos repository and installing it locally:
 
-#### v23.3.0 (Mainnet)
+## Cloning Kopi repository and installing it locally:
+
+### v0.6.5 (Mainnet)
 
 ```
-cd $HOME && \
-rm -rf $HOME/gaia
-git clone https://github.com/cosmos/gaia && \
-cd $HOME/gaia && \
-git checkout v23.3.0 && \
+rm -rf ${HOME}/kopi
+git clone --quiet --depth 1 --branch v0.6.5\
+    https://github.com/kopi-money/kopi.git ${HOME}/kopi
+cd ${HOME}/kopi
 make install
 ```
 
 Check Kopi version
-
 ```
-$HOME/go/bin/gaiad version --long | tail
+$HOME/go/bin/kopid version --long | tail
 ```
 
 result
-
 ```
 - pgregory.net/rapid@v1.1.0
 - sigs.k8s.io/yaml@v1.4.0
 build_tags: netgo,ledger
-commit: 875b68be0df1e9e8940c568e93e7478edc55a27f
-cosmos_sdk_version: v0.50.11-lsm
-go: go version go1.23.6 linux/amd64
-name: gaia
-server_name: gaiad
-version: v23.3.0
+commit: 6fa611ec505861544a7305e347362ce09392a083
+cosmos_sdk_version: v0.50.7-0.5
+go: go version go1.23.0 linux/amd64
+name: kopi
+server_name: kopid
+version: v0.6.5
 ```
 
-#### Configure Cosmovisor:
 
+### Configure Cosmovisor:
 ```
-cd $HOME && \
-mkdir -p $HOME/.gaia/cosmovisor/upgrades/v23.3.0/bin && \
-cp $HOME/go/bin/gaiad $HOME/.gaia/cosmovisor/upgrades/v23.3.0/bin
+cd $HOME
+mkdir -p $HOME/.kopid/cosmovisor/genesis/bin
+mkdir -p $HOME/.kopid/cosmovisor/upgrades
+cp $HOME/go/bin/kopid $HOME/.kopid/cosmovisor/genesis/bin/
 ```
 
-#### Download and install Cosmovisor
 
+### Download and install Cosmovisor
 ```
-cd $HOME && \
+cd $HOME
 go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@latest
 ```
 
-### INITIA NODE:
-
-#### Set var:
-
-with port=`19`xxx
+## INITIA NODE:
+### Set var: 
+with port=`12`xxx
 
 ```
 echo "export WALLET="wallet"" >> $HOME/.bash_profile
 echo "export MONIKER="your-moniker"" >> $HOME/.bash_profile
-echo "export KOPI_CHAIN_ID="cosmoshub-4"" >> $HOME/.bash_profile
-echo "export KOPI_PORT="19"" >> $HOME/.bash_profile
+echo "export KOPI_CHAIN_ID="luwak-1"" >> $HOME/.bash_profile
+echo "export KOPI_PORT="12"" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
 
 ```
-DAEMON_HOME="$HOME/.gaia/" DAEMON_NAME="gaiad" cosmovisor init $(which gaiad)
+DAEMON_HOME="$HOME/.kopid/" DAEMON_NAME="kopid" cosmovisor init $HOME/go/bin/kopid
 ```
 
+### config and init app
 ```
-echo "export DAEMON_NAME="gaiad"" >> $HOME/.bash_profile
-echo "export DAEMON_HOME="$HOME/.gaia/"" >> $HOME/.bash_profile
-source $HOME/.bash_profile
-```
-
-#### Config and init app
-
-```
-gaiad config set client chain-id $GAIA_CHAIN_ID && \
-gaiad config set client keyring-backend os && \
-gaiad config set client node tcp://localhost:${GAIA_PORT}657 && \
-gaiad init "$MONIKER" --chain-id $GAIA_CHAIN_ID
+kopid init $MONIKER && \
+kopid config set client chain-id $KOPI_CHAIN_ID && \
+kopid config set client keyring-backend os && \
+sed -i -e "s|^node *=.*|node = \"tcp://localhost:${KOPI_PORT}657\"|" $HOME/.kopid/config/client.toml
 ```
 
-### Custom Port:
-
-#### set custom ports in `app.toml`
-
+## Custom Port:
+### set custom ports in `app.toml`
 ```
-sed -i.bak -e "s%:1317%:${GAIA_PORT}317%g;
-s%:8080%:${GAIA_PORT}080%g;
-s%:9090%:${GAIA_PORT}090%g;
-s%:9091%:${GAIA_PORT}091%g;
-s%:8545%:${GAIA_PORT}545%g;
-s%:8546%:${GAIA_PORT}546%g;
-s%:6065%:${GAIA_PORT}065%g" $HOME/.gaia/config/app.toml
+sed -i.bak -e "s%:1317%:${KOPI_PORT}317%g;
+s%:8080%:${KOPI_PORT}080%g;
+s%:9090%:${KOPI_PORT}090%g;
+s%:9091%:${KOPI_PORT}091%g;
+s%:8545%:${KOPI_PORT}545%g;
+s%:8546%:${KOPI_PORT}546%g;
+s%:6065%:${KOPI_PORT}065%g" $HOME/.kopid/config/app.toml
 ```
 
-#### set custom ports in `config.toml` file
-
+### set custom ports in `config.toml` file
 ```
-sed -i.bak -e "s%:26658%:${GAIA_PORT}658%g;
-s%:26657%:${GAIA_PORT}657%g;
-s%:6060%:${GAIA_PORT}060%g;
-s%:26656%:${GAIA_PORT}656%g;
-s%^external_address = \"\"%external_address = \"$(wget -qO- eth0.me):${GAIA_PORT}656\"%;
-s%:26660%:${GAIA_PORT}660%g" $HOME/.gaia/config/config.toml
-```
-
-### Downloading genesis and adjust config files...:
-
-<pre><code><strong>SEEDS=""
-</strong>PEERS=""
-sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.gaia/config/config.toml
-sed -i 's|minimum-gas-prices =.*|minimum-gas-prices = "0.0025uatom"|g' $HOME/.gaia/config/app.toml
-</code></pre>
-
-#### Setting pruning
-
-```
-sed -i -e 's|^pruning *=.*|pruning = "custom"|' $HOME/.gaia/config/app.toml
-sed -i -e 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|' $HOME/.gaia/config/app.toml
-sed -i -e 's|^pruning-keep-every *=.*|pruning-keep-every = "0"|' $HOME/.gaia/config/app.toml
-sed -i -e 's|^pruning-interval *=.*|pruning-interval = "19"|' $HOME/.gaia/config/app.toml
+sed -i.bak -e "s%:26658%:${KOPI_PORT}658%g;
+s%:26657%:${KOPI_PORT}657%g;
+s%:6060%:${KOPI_PORT}060%g;
+s%:26656%:${KOPI_PORT}656%g;
+s%^external_address = \"\"%external_address = \"$(wget -qO- eth0.me):${KOPI_PORT}656\"%;
+s%:26660%:${KOPI_PORT}660%g" $HOME/.kopid/config/config.toml
 ```
 
-#### Disable indexer
+
+## Downloading genesis and adjust config files...:
 
 ```
-sed -i -e 's|^indexer *=.*|indexer = "null"|' $HOME/.gaia/config/config.toml
+IP=$(curl -s -4 icanhazip.com)
+sed -i -e "s/external_address = \"\"/external_address = \"${IP}:26656\"/g" ~/.kopid/config/config.toml
+sed -i '/^seeds/ c\seeds = "85919e3dcc7eec3b64bfdd87657c4fac307c9d23@65.109.34.145:26656"' ~/.kopid/config/config.toml
+sed -i -e 's/timeout_propose = "3s"/timeout_propose = "1s"/g' ~/.kopid/config/config.toml
+sed -i -e 's/timeout_commit = "5s"/timeout_commit = "1s"/g' ~/.kopid/config/config.toml
+sed -i -e 's/minimum-gas-prices = ""/minimum-gas-prices = "0ukopi"/g' ~/.kopid/config/app.toml
 ```
 
-#### Enable Prometheus
 
+### Setting pruning
 ```
-sed -i -e "s/prometheus = false/prometheus = true/" $HOME/.gaia/config/config.toml
-```
-
-#### Downloading chain data:
-
-```
-wget -O $HOME/.gaia/config/genesis.json https://server-5.itrocket.net/mainnet/cosmoshub/genesis.json
-wget -O $HOME/.gaia/config/addrbook.json  https://server-5.itrocket.net/mainnet/cosmoshub/addrbook.json
+sed -i -e 's|^pruning *=.*|pruning = "custom"|' $HOME/.kopid/config/app.toml
+sed -i -e 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|' $HOME/.kopid/config/app.toml
+sed -i -e 's|^pruning-keep-every *=.*|pruning-keep-every = "0"|' $HOME/.kopid/config/app.toml
+sed -i -e 's|^pruning-interval *=.*|pruning-interval = "10"|' $HOME/.kopid/config/app.toml
 ```
 
-### Create service:
-
+### Disable indexer
 ```
-sudo tee /etc/systemd/system/gaiad.service > /dev/null << EOF
+sed -i -e 's|^indexer *=.*|indexer = "null"|' $HOME/.kopid/config/config.toml
+```
+
+### Enable Prometheus
+```
+sed -i -e "s/prometheus = false/prometheus = true/" $HOME/.kopid/config/config.toml
+```
+
+### Downloading chain data:
+```
+wget -q https://data.kopi.money/genesis.json \
+    -O ~/.kopid/config/genesis.json
+```
+
+
+## Create service:
+```
+sudo tee /etc/systemd/system/kopid.service > /dev/null << EOF
 [Unit]
-Description=COSMOS node
+Description=Cosmovisor daemon
 After=network-online.target
 
 [Service]
-User=$USER
-WorkingDirectory=$HOME/.gaia
-ExecStart=$(which cosmovisor) run start
-Restart=on-failure
-RestartSec=5
-LimitNOFILE=65535
-Environment="DAEMON_HOME=$HOME/.gaia"
-Environment="DAEMON_NAME=gaiad"
-Environment="UNSAFE_SKIP_BACKUP=true"
+Environment="DAEMON_NAME=kopid"
+Environment="DAEMON_HOME=$HOME/.kopid"
 Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=true"
 Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+Environment="DAEMON_POLL_INTERVAL=300ms"
+Environment="DAEMON_DATA_BACKUP_DIR=$HOME/.kopid"
+Environment="UNSAFE_SKIP_BACKUP=false"
+Environment="DAEMON_PREUPGRADE_MAX_RETRIES=0"
+User=$USER
+ExecStart=$HOME/go/bin/cosmovisor run start
+Restart=on-failure
+RestartSec=10
+LimitNOFILE=4096
 
 [Install]
 WantedBy=multi-user.target
 EOF
 ```
 
-#### Service:
 
+
+### Service:
 ```
 sudo systemctl daemon-reload
-sudo systemctl enable gaiad.service
-sudo systemctl start gaiad
+sudo systemctl enable kopid.service
+sudo systemctl start kopid
 ```
 
 Stop service:
-
 ```
-sudo systemctl stop gaiad
-sudo systemctl disable gaiad
+sudo systemctl stop kopid
+sudo systemctl disable kopid
 ```
 
-#### CHECK:
 
+### CHECK:
 Check status:
-
 ```
-sudo systemctl status gaiad
+sudo systemctl status kopid
 ```
 
 Check log:
-
 ```
-sudo journalctl -u gaiad -f --no-hostname -o cat
+sudo journalctl -u kopid -f --no-hostname -o cat
 ```
 
 Check Sync:
-
 ```
-gaiad status 2>&1 | jq .sync_info
+kopid status 2>&1 | jq .sync_info
 ```
 
 Check validator info:
+```
+kopid status 2>&1 | jq .validator_info
+```
+
+
+## Delete node:
+**_Make sure you have backup your validator before do this action:_**
 
 ```
-gaiad status 2>&1 | jq .validator_info
-```
-
-### Delete node:
-
-_**Make sure you have backup your validator before do this action:**_
-
-```
-sudo systemctl stop gaiad
-sudo systemctl disable gaiad
-sudo rm -rf /etc/systemd/system/gaiad.service
+sudo systemctl stop kopid
+sudo systemctl disable kopid
+sudo rm -rf /etc/systemd/system/kopid.service
 sudo systemctl daemon-reload
-sudo rm -f $(which gaiad)
-sudo rm -rf $HOME/.gaia
-sudo rm -rf $HOME/gaia
+sudo rm -f $(which kopid)
+sudo rm -rf $HOME/.kopid
+sudo rm -rf $HOME/kopi
 ```
 
-## END
+# END
