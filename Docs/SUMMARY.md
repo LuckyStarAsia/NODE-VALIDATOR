@@ -179,6 +179,8 @@
       * [Monitoring](../testnet/cosmos-eco/story/monitoring/README.md)
         * [Story-Dashboard](../TESTNET/COSMOS-eco/STORY/Monitoring/Story-Dashboard.md)
     * [Warden protocol](../testnet/cosmos-eco/warden-protocol/README.md)
+      * [Barra](testnet/cosmos-eco/warden-protocol/barra/README.md)
+        * [Snapshot](testnet/cosmos-eco/warden-protocol/barra/snapshot.md)
       * [Chiado](../testnet/cosmos-eco/warden-protocol/chiado/README.md)
         * [fix-AppHash](../testnet/cosmos-eco/warden-protocol/chiado/fix-apphash.md)
         * [Join Chiado](../testnet/cosmos-eco/warden-protocol/chiado/install.md)
