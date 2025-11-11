@@ -22,6 +22,16 @@
 
 &#x20;[https://orai-mainnet-api.luckystar.asia/](https://orai-mainnet-api.luckystar.asia/)
 
-### RPC
+### RPC & WSS
 
-[https://orai-mainnet-rpc.luckystar.asia/](https://orai-mainnet-rpc.luckystar.asia/)
+[https://orai-mainnet-rpc.luckystar.asia/](https://orai-mainnet-rpc.luckystar.asia/)\
+wss://orai-mainnet-rpc.luckystar.asia/ws
+
+### gRPC:
+
+[https://orai-mainnet-grpc.luckystar.asia/](https://orai-mainnet-grpc.luckystar.asia/)
+
+### EVM RPC & WSS:
+
+[https://orai-mainnet-evmrpc.luckystar.asia/](https://orai-mainnet-evmrpc.luckystar.asia/)\
+wss://orai-mainnet-evmrpc.luckystar.asia/ws\
