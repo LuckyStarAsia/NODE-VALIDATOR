@@ -18,7 +18,7 @@ rm -rf $HOME/.atomone/data/*
 ### Download latest snapshot
 
 ```
-curl -L https://atomonemainnet-services.luckystar.asia/atomonemainnet/atomone-1_latest.tar.lz4 | lz4 -d - | tar -xf - -C $HOME/.atomone/data
+curl -L https://atomone-mainnet-services.luckystar.asia/atomonemainnet/atomone-1_latest.tar.lz4 | lz4 -d - | tar -xf - -C $HOME/.atomone/data
 ```
 
 ```
