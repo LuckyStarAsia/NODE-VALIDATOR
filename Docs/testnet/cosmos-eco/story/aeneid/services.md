@@ -29,10 +29,6 @@ coverY: 0
 
 wss://story-testnet-rpc.luckystar.asia/ws
 
-### gRPC
-
-[https://story-testnet-grpc.luckystar.asia](https://story-testnet-grpc.luckystar.asia)
-
 ### EVM RPC & WSS:
 
 [https://story-testnet-evmrpc.luckystar.asia](https://story-testnet-evmrpc.luckystar.asia)\

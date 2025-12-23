@@ -8,7 +8,7 @@ coverY: 0
 ## Stop the service
 
 ```
-sudo systemctl stop story.service story-geth.service
+sudo systemctl stop storytest.service story-geth.service
 ```
 
 ## Reset the data and save validator state
@@ -34,6 +34,6 @@ mv $HOME/.story/story/priv_validator_state.json.backup $HOME/.story/story/data/p
 ## Restart the service and check the log
 
 ```
-sudo systemctl restart story-geth && sleep 5 && sudo systemctl restart story
-sudo journalctl -u story -u story-geth -f
+sudo systemctl restart story-geth && sleep 5 && sudo systemctl restart storytest
+sudo journalctl -u storytest -u story-geth -f
 ```
