@@ -3,7 +3,10 @@
   "name": "LuckyStar",
   "website": "https://explorer.luckystar.asia", 
   "description": "Professional Validator and Node Operator. LuckyStar join blockchain network",
-  "icon": "https://raw.githubusercontent.com/LuckyStarAsia/NODE-VALIDATOR/refs/heads/main/LOGO/LuckyStar.jpg",
+  "icon": {
+    "14x14": { "@1x": "https://raw.githubusercontent.com/LuckyStarAsia/NODE-VALIDATOR/refs/heads/main/Mainnet/ESPRESSO/icon-1.jpg", "@2x": "https://raw.githubusercontent.com/LuckyStarAsia/NODE-VALIDATOR/refs/heads/main/Mainnet/ESPRESSO/icon-3.jpg", "@3x": "https://raw.githubusercontent.com/LuckyStarAsia/NODE-VALIDATOR/refs/heads/main/Mainnet/ESPRESSO/icon-5.jpg" },
+    "24x24": { "@1x": "https://raw.githubusercontent.com/LuckyStarAsia/NODE-VALIDATOR/refs/heads/main/Mainnet/ESPRESSO/icon-2.jpg", "@2x": "https://raw.githubusercontent.com/LuckyStarAsia/NODE-VALIDATOR/refs/heads/main/Mainnet/ESPRESSO/icon-4.jpg", "@3x": "https://raw.githubusercontent.com/LuckyStarAsia/NODE-VALIDATOR/refs/heads/main/Mainnet/ESPRESSO/icon-6.jpg" }
+  },
   "twitter": "https://x.com/LuckyStar_Asia",
   "discord": "869232994387365929",
   "telegram": "https://t.me/LuckyStarAsia"
