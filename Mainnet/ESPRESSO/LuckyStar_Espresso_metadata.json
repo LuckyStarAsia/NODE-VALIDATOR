@@ -1,1 +1,10 @@
-
+{
+  "name": "LuckyStar",
+  "website": "https://explorer.luckystar.asia", 
+  "description": "Professional Validator and Node Operator. LuckyStar join blockchain network",
+  "logo": "https://raw.githubusercontent.com/LuckyStarAsia/NODE-VALIDATOR/refs/heads/main/LOGO/LuckyStar.png",
+  "twitter": "https://x.com/LuckyStar_Asia",
+  "discord": "869232994387365929",
+  "telegram": "https://t.me/LuckyStarAsia",
+  "pub_key": "BLS_VER_KEY~v5NqXh8eoEDsU3PDKbebivaFZROzj_nJX0XK-acXhQvAtEK9Z6mIQt94dsgGlVa4P6JBnDJbNYee6pv-EJKHCHWUVjGZ3vdTEnrLlPTE50--NkPlZPE_v8wqFafusuYrbatACQe6HgGceSSzIG-JYw2eo4dKP2VQVA-BxSMa4ANl"
+}
