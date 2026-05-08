@@ -34,4 +34,4 @@ wss://orai-mainnet-rpc.luckystar.asia/ws
 ### EVM RPC & WSS:
 
 [https://orai-mainnet-evmrpc.luckystar.asia/](https://orai-mainnet-evmrpc.luckystar.asia/)\
-wss://orai-mainnet-evmrpc.luckystar.asia/ws\
+wss://orai-mainnet-evmrpc.luckystar.asia/ws<br>

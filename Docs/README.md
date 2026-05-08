@@ -9,4 +9,4 @@ coverY: 0
 
 # WELCOME TO LUCKY STAR
 
-<figure><img src=".gitbook/assets/LuckyStar.jpg" alt="" width="375"><figcaption><p>LuckyStar</p></figcaption></figure>
+<figure><img src=".gitbook/assets/LuckyStar.png" alt=""><figcaption><p>LuckyStar</p></figcaption></figure>
