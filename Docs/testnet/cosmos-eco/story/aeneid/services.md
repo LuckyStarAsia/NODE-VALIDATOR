@@ -5,7 +5,7 @@ coverY: 0
 
 # Services
 
-![STORY](../../../../.gitbook/assets/story-protocol.png)
+<img src="../../../../.gitbook/assets/story-protocol.png" alt="STORY" width="197">
 
 ## LUCKYSTAR - STORY services:
 

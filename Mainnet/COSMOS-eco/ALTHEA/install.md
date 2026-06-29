@@ -7,7 +7,7 @@ coverY: 0
 
 ## ALTHEA Network
 
-![ALTHEA Network](https://github.com/user-attachments/assets/1e27bf02-5b08-4ee2-9b66-947bd784c24e)
+<img src="https://github.com/user-attachments/assets/1e27bf02-5b08-4ee2-9b66-947bd784c24e" alt="ALTHEA Network" width="375">
 
 ### Althea Node Installation Guide
 

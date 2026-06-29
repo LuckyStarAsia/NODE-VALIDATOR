@@ -4,7 +4,7 @@ description: Bitbadges
 
 # Snapshot
 
-![Bitbadges](../../../.gitbook/assets/badge_logo.png)
+<img src="../../../.gitbook/assets/badge_logo.png" alt="Bitbadges" width="188">
 
 ## Stop the service
 

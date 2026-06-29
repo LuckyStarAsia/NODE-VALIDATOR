@@ -1,6 +1,6 @@
 # Services
 
-![image](<../../../.gitbook/assets/Bitway -blackbackground@2x-1.png>)
+<img src="../../../.gitbook/assets/Bitway -blackbackground@2x-1.png" alt="image" width="188">
 
 ## LUCKYSTAR - BITWAY services:
 

@@ -5,7 +5,7 @@ coverY: 0
 
 # Command
 
-![TAC Chain](../../../.gitbook/assets/tac.jpg)
+<img src="../../../.gitbook/assets/tac.jpg" alt="TAC Chain" width="200">
 
 ## TAC chain CLI Cheatsheet
 

@@ -6,7 +6,7 @@ coverY: 0
 
 # Command
 
-![ALTHEA Network](https://github.com/user-attachments/assets/9763ee83-ea45-42b7-a3ed-e2edbc16f921)
+<img src="https://github.com/user-attachments/assets/9763ee83-ea45-42b7-a3ed-e2edbc16f921" alt="ALTHEA Network" width="375">
 
 ## Althea CLI Cheatsheet
 

@@ -1,6 +1,6 @@
 # Services
 
-![Seda](https://github.com/user-attachments/assets/20b1b777-70de-4bb8-b121-249bb7aa28a9)
+<img src="https://github.com/user-attachments/assets/20b1b777-70de-4bb8-b121-249bb7aa28a9" alt="Seda" width="375">
 
 ## LUCKYSTAR - SEDA services:
 

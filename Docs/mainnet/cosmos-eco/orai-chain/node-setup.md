@@ -1,6 +1,6 @@
 # Node setup
 
-![image](../../../.gitbook/assets/orai-token.png)
+<img src="../../../.gitbook/assets/orai-token.png" alt="image" width="375">
 
 ## ORAI NODE SETUP
 

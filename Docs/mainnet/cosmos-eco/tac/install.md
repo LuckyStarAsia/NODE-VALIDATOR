@@ -7,7 +7,7 @@ coverY: 0
 
 ## TAC Chain
 
-![TAC chain](../../../.gitbook/assets/tac.jpg)
+<img src="../../../.gitbook/assets/tac.jpg" alt="TAC chain" width="200">
 
 ### TAC Node Installation Guide
 

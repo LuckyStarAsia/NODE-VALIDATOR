@@ -4,7 +4,7 @@ description: Intento
 
 # Snapshot
 
-![Intento](../../../.gitbook/assets/into.png)
+<img src="../../../.gitbook/assets/into.png" alt="Intento" width="256">
 
 ## Stop the service
 
