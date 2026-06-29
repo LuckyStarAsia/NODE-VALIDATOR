@@ -22,8 +22,6 @@ sudo apt install nano tree curl tar wget clang pkg-config libssl-dev libleveldb-
 
 #### Install GO
 
-Go Installation (for even user)
-
 ```
 cd $HOME
 VER="1.23.1"
@@ -93,7 +91,7 @@ gnoland config set p2p.max_num_outbound_peers 40 && \
 gnoland config set p2p.persistent_peers g1lxkf9gn7kddrr26c640ww5wg3ezsm22we8cjpc@99.81.240.125:26656,g17su28ydtj8jsdqt2c7m3jn3mysqlz6n57vxd5t@62.210.125.225:26656,g1zz2yvc23ts7uk05gemxmj9dlrhdt7w8pxtcdy5@62.210.207.58:26656,g1uycj5lkvu97jddywjttd8xq53u3p6eyhh2js25@62.210.124.8:26656,g142k7zc2qym3c0u6jmkf6rv26llgr2f4nakmlmt@54.145.44.95:26656,g12gxe0qpq90vhhpp5gtavafgr2nl9cntntvrjkj@186.233.184.95:37656
 ```
 
-#### Add Genesis File and Addrbook:
+#### Add Genesis File:
 
 ```
 wget -O $HOME/gnoland-data/config/genesis.json https://snapshots.luckystar.asia/gnolandtest/genesis.json
