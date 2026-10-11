@@ -16,7 +16,8 @@ rm -rf $HOME/.terra/data/*
 ## Download `latest` snapshot
 
 ```
-curl -L https://terra-mainnet-services.luckystar.asia/terra/phoenix-1_latest.tar.lz4 | lz4 -d - | tar -xf - -C $HOME/.sedad/data
+curl -L https://snapshots.luckystar.asia/terra/terra_data.tar.zst && \
+tar -I zstd -xf $HOME/terra_data.tar.zst -C $HOME/.terra/
 ```
 
 ```

@@ -8,7 +8,7 @@
 
 [https://explorer.luckystar.asia/TERRA](https://explorer.luckystar.asia/TERRA)
 
-### [SNAPSHOT link](../seda/snapshot.md)
+### [SNAPSHOT link](snapshot.md)
 
 ### GENESIS&#x20;
 
