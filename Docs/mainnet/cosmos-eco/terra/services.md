@@ -12,11 +12,11 @@
 
 ### GENESIS&#x20;
 
-[https://terra-mainnet-services.luckystar.asia/terra/genesis.json](https://terra-mainnet-services.luckystar.asia/terra/genesis.json)
+[https://snapshots.luckystar.asia/terra/genesis.json](https://snapshots.luckystar.asia/terra/genesis.json)
 
 ### ADDRBOOK
 
-[https://terra-mainnet-services.luckystar.asia/terra/addrbook.json](https://terra-mainnet-services.luckystar.asia/terra/addrbook.json)
+[https://snapshots.luckystar.asia/terra/addrbook.json](https://snapshots.luckystar.asia/terra/addrbook.json)
 
 ### API
 
