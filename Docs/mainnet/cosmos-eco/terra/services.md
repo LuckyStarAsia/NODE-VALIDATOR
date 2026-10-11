@@ -24,4 +24,4 @@
 
 ### RPC
 
-[https://terra-mainnet-rpc.luckystar.asia/](https://terra-mainnet-api.luckystar.asia/)
+[https://terra-mainnet-rpc.luckystar.asia/](https://terra-mainnet-rpc.luckystar.asia/)
